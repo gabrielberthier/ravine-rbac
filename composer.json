@@ -13,7 +13,8 @@
         "psr-4": {
             "RavineRbac\\": "src/",
             "Core\\": "base/"
-        }
+        },
+        "files": ["base/functions/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {
@@ -36,9 +37,12 @@
         "doctrine/migrations": "^3.6",
         "doctrine/orm": "^2.15.0",
         "firebase/php-jwt": "^6.0",
+        "httpsoft/http-server-request": "^1.1",
         "monolog/monolog": ">=3.4",
         "nyholm/psr7": "^1.8",
         "phpoption/phpoption": "^1.9",
+        "psr/http-server-handler": "^1.0",
+        "psr/http-server-middleware": "^1.0",
         "symfony/cache": "^6.0",
         "symfony/dotenv": "^6.0",
         "symfony/yaml": "^6.0"
@@ -53,6 +57,7 @@
     },
     "scripts": {
         "test": "phpunit",
+        "test:cycleorm": "phpunit --group cycleorm",
         "test:update": "phpunit --migrate-configuration"
     }
 }

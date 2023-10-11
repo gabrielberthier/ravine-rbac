@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Presentation\Middleware;
 
+use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
 use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
 use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
@@ -12,13 +13,13 @@ use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
 use RavineRbac\Domain\Models\RBAC\Resource;
 use RavineRbac\Domain\Models\RBAC\Role;
-use RavineRbac\Presentation\Protocols\RbacFallbackInterface;
+use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Nyholm\Psr7\Response;
 use PhpOption\Option;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Exception\HttpForbiddenException;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Tests\TestCase;
 
 class RoleValidationMiddlewareTest extends TestCase
@@ -122,7 +123,7 @@ class RoleValidationMiddlewareTest extends TestCase
     {
         $this->roleFetcher->method('getRole')->willReturn(Option::fromValue(null));
         $this->resourceFetcher->method('getResource')->willReturn(Option::fromValue(null));
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(HttpForbiddenAccessException::class);
 
         $this->sut->process($this->getRequest(), $this->forgeRequestHandler());
     }
@@ -152,7 +153,7 @@ class RoleValidationMiddlewareTest extends TestCase
         $this->accessControl->forgeRole('admin', 'description');
         $request = $this->getRequest()->withMethod('POST');
 
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(HttpForbiddenAccessException::class);
 
         $this->sut->process($request, $this->forgeRequestHandler());
     }
@@ -173,7 +174,7 @@ class RoleValidationMiddlewareTest extends TestCase
 
         $this->roleFetcher->method('getRole')->willReturn(Option::fromValue($role));
 
-        $this->expectException(HttpForbiddenException::class);
+        $this->expectException(HttpForbiddenAccessException::class);
 
         $this->sut->process($request, $this->forgeRequestHandler());
     }
@@ -225,14 +226,17 @@ class RoleValidationMiddlewareTest extends TestCase
 
     private function forgeRequestHandler()
     {
-        return new RequestHandler(
-            function (ServerRequestInterface $request): ResponseInterface {
+
+        return new class implements RequestHandler {
+
+            function handle(ServerRequestInterface $request): ResponseInterface
+            {
                 $response = new Response();
                 $response->getBody()->write('Success');
 
                 return $response;
             }
-        );
+        };
     }
 
     private function getRequest()

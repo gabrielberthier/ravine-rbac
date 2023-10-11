@@ -2,6 +2,8 @@
 
 namespace Tests\Infrastructure\Persistence\Orm\Rbac;
 
+use Core\Data\Factories\CycleDatabaseManagerFactory;
+use Core\Data\Factories\CycleOrmFactory;
 use RavineRbac\Data\Entities\Cycle\Rbac\CyclePermission;
 use RavineRbac\Data\Entities\Cycle\Rbac\CycleResource;
 use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
@@ -16,6 +18,7 @@ use PHPUnit\Framework\Attributes\Group;
 use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleAccessCreator;
 use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleAccessRepository;
 use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleExtender;
+use Spiral\Core\Container;
 use Tests\TestCase;
 
 #[CoversNothing]
@@ -38,6 +41,11 @@ final class CycleRoleAccessTest extends TestCase
 
     public function setUp(): void
     {
+        $this->orm = CycleOrmFactory::createOrm(
+            CycleDatabaseManagerFactory::createDatabase(),
+            new Container()
+        );
+        $this->em = new EntityManager($this->orm);
         $this->sut = new CycleRoleAccessCreator($this->orm);
     }
 

@@ -6,6 +6,7 @@ namespace Core\Data\Factories;
 
 use Cycle\ORM;
 use Cycle\Database\DatabaseManager;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Spiral\Tokenizer\ClassLocator;
 use Cycle\Schema;
@@ -16,9 +17,9 @@ class CycleOrmFactory
 {
     public static function createOrm(
         DatabaseManager $databaseManager,
-        ?ContainerInterface $containerInterface = null
+        ContainerInterface $containerInterface 
     ) {
-        $root = dirname(dirname(__DIR__));
+        $root = dirname(__DIR__, 3);
 
         $finder = (new Finder())
             ->files()

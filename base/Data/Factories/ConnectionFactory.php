@@ -40,12 +40,14 @@ final class ConnectionFactory
         ];
     }
 
-    public static function getConnection(): ?DriverConfig
-    {
+    public static function getConnection(
+        array $connectionOptions = [],
+        array $driverOptions = []
+    ): ?DriverConfig {
         if (!inTesting()) {
             $connectorFacade = new ConnectorFacade(
                 connection: self::getConnectionSettings(),
-                connectionOptions: []
+                connectionOptions: $connectionOptions
             );
 
             // Configure connector as you wish
@@ -55,7 +57,7 @@ final class ConnectionFactory
                 ->withSchema("public");
 
             return $connectorFacade->produceDriverConnection(
-                driverOptions: []
+                driverOptions: $driverOptions
             );
         }
 

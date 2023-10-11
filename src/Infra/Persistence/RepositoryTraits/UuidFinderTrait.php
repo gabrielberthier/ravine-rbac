@@ -2,7 +2,7 @@
 
 namespace RavineRbac\Infra\Persistence\RepositoryTraits;
 
-use RavineRbac\Infrastructure\Uuid\UuidEncoder;
+use RavineRbac\infra\Uuid\UuidEncoder;
 
 trait UuidFinderTrait
 {

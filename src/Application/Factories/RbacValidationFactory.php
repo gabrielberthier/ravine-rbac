@@ -6,8 +6,8 @@ use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\Permission;
 use RavineRbac\Domain\Models\RBAC\Resource;
-use RavineRbac\Presentation\Middleware\RoleValidationMiddleware;
-use RavineRbac\Presentation\Protocols\RbacFallbackInterface;
+use RavineRbac\Application\Middleware\RoleValidationMiddleware;
+use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Psr\Container\ContainerInterface;
 
 class RbacValidationFactory

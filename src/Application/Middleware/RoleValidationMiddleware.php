@@ -3,6 +3,7 @@
 namespace RavineRbac\Application\Middleware;
 
 
+use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
 use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
 use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
@@ -13,13 +14,12 @@ use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Domain\Models\Token;
 use PhpOption\LazyOption;
 use PhpOption\Option;
-use RavineRbac\Presentation\Protocols\RbacFallbackInterface;
+use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Closure;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface as Middleware;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use Slim\Exception\HttpForbiddenException;
 
 class RoleValidationMiddleware implements Middleware
 {
@@ -61,7 +61,7 @@ class RoleValidationMiddleware implements Middleware
             }
         }
 
-        throw new HttpForbiddenException($request, "Access forbidden");
+        throw new HttpForbiddenAccessException();
     }
 
     public function setResourceTarget(Resource|string $resource): self

@@ -4,7 +4,7 @@ namespace RavineRbac\Infra\Persistence\PersistenceUtils;
 
 use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
 use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\SearchResult;
-use RavineRbac\Infrastructure\Persistence\Doctrine\Pagination\PaginationService;
+use RavineRbac\infra\Persistence\Doctrine\Pagination\PaginationService;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 
 class ItemsRetriever

@@ -20,7 +20,6 @@ class TestCase extends PHPUnit_TestCase
 {
     use AppTestTrait;
     use DoublesTrait;
-    use ErrorHandlerTrait;
     use RequestManagerTrait;
 
     public static function createDatabase()
@@ -32,16 +31,4 @@ class TestCase extends PHPUnit_TestCase
     {
         DatabaseCleaner::truncate();
     }
-
-    public static function createDatabaseDoctrine()
-    {
-        DatabaseCreator::createDoctrineDatabase();
-    }
-
-    final public static function truncateDatabaseDoctrine()
-    {
-        DatabaseCleaner::truncateDoctrineDatabase();
-    }
-
-
 }
