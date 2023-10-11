@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Models\Enums;
+namespace RavineRbac\Domain\Models\Enums;
 
 enum AuthTypes: string
 {

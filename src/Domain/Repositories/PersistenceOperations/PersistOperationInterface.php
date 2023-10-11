@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Repositories\PersistenceOperations;
+namespace RavineRbac\Domain\Repositories\PersistenceOperations;
 
-use App\Domain\Contracts\ModelInterface;
+use RavineRbac\Domain\Contracts\ModelInterface;
 
 interface PersistOperationInterface
 {

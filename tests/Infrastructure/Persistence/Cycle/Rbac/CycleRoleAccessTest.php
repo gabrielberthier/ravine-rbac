@@ -2,20 +2,20 @@
 
 namespace Tests\Infrastructure\Persistence\Orm\Rbac;
 
-use App\Data\Entities\Cycle\Rbac\CyclePermission;
-use App\Data\Entities\Cycle\Rbac\CycleResource;
-use App\Data\Entities\Cycle\Rbac\CycleRole;
-use App\Domain\Models\RBAC\ContextIntent;
-use App\Domain\Models\RBAC\Permission;
-use App\Domain\Models\RBAC\Resource;
-use App\Domain\Models\RBAC\Role;
-use App\Infrastructure\Persistence\Cycle\RbacDb\CycleRoleAccessCreator;
-use App\Infrastructure\Persistence\Cycle\RbacDb\CycleRoleAccessRepository;
-use App\Infrastructure\Persistence\Cycle\RbacDb\CycleRoleExtender;
+use RavineRbac\Data\Entities\Cycle\Rbac\CyclePermission;
+use RavineRbac\Data\Entities\Cycle\Rbac\CycleResource;
+use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
+use RavineRbac\Domain\Models\RBAC\ContextIntent;
+use RavineRbac\Domain\Models\RBAC\Permission;
+use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\Role;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Group;
+use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleAccessCreator;
+use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleAccessRepository;
+use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleExtender;
 use Tests\TestCase;
 
 #[CoversNothing]

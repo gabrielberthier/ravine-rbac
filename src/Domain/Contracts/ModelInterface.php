@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Contracts;
+namespace RavineRbac\Domain\Contracts;
 
 use JsonSerializable;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Repositories;
+namespace RavineRbac\Domain\Repositories;
 
-use App\Domain\Models\Museum;
-use App\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
+use RavineRbac\Domain\Models\Museum;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
 
 interface MuseumRepository
 {
@@ -18,7 +18,7 @@ interface MuseumRepository
     /**
      * Inserts a museum model.
      *
-     * @throws \App\Domain\Exceptions\Museum\MuseumAlreadyRegisteredException
+     * @throws \RavineRbac\Domain\Exceptions\Museum\MuseumAlreadyRegisteredException
      */
     public function add(Museum $model): bool;
 

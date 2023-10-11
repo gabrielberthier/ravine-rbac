@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infra\Uuid;
+namespace RavineRbac\Infra\Uuid;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;

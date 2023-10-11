@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Repositories;
+namespace RavineRbac\Domain\Repositories;
 
-use App\Domain\Models\Museum;
-use App\Domain\Models\Security\SignatureToken;
+use RavineRbac\Domain\Models\Museum;
+use RavineRbac\Domain\Models\Security\SignatureToken;
 
 interface SignatureTokenRetrieverInterface
 {

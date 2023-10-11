@@ -1,7 +1,7 @@
 <?php
-use App\Domain\Models\RBAC\AccessControl;
-use App\Domain\Models\RBAC\Role;
-use App\Domain\OptionalApi\Result;
+use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\OptionalApi\Result;
 
 interface RoleStorer
 {

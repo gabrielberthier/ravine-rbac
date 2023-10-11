@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Models\Assets\Types\Exceptions;
+namespace RavineRbac\Domain\Models\Assets\Types\Exceptions;
 
-use App\Domain\Exceptions\Protocols\DomainException as ProtocolsDomainException;
+use RavineRbac\Domain\Exceptions\Protocols\DomainException as ProtocolsDomainException;
 
 
 class NotAllowedAssetType extends ProtocolsDomainException

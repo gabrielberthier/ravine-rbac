@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Infra\Persistence\Cycle;
+namespace RavineRbac\Infra\Persistence\Cycle;
 
-use App\Data\Entities\Cycle\CycleAccount;
-use App\Domain\Dto\AccountDto;
-use App\Domain\Exceptions\Account\UserAlreadyRegisteredException;
-use App\Domain\Models\Account;
-use App\Domain\Models\Enums\AuthTypes;
-use App\Domain\Repositories\AccountRepository;
+use RavineRbac\Data\Entities\Cycle\CycleAccount;
+use RavineRbac\Domain\Dto\AccountDto;
+use RavineRbac\Domain\Exceptions\Account\UserAlreadyRegisteredException;
+use RavineRbac\Domain\Models\Account;
+use RavineRbac\Domain\Models\Enums\AuthTypes;
+use RavineRbac\Domain\Repositories\AccountRepository;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 use Cycle\ORM\RepositoryInterface;

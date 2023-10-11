@@ -1,15 +1,15 @@
 <?php
-namespace App\Infra\Persistence\Cycle\RbacDb;
+namespace RavineRbac\Infra\Persistence\Cycle\RbacDb;
 
-use App\Data\Entities\Cycle\Rbac\CyclePermission;
-use App\Data\Entities\Cycle\Rbac\CycleResource;
-use App\Data\Entities\Cycle\Rbac\CycleRole;
-use App\Domain\Models\RBAC\Permission;
-use App\Domain\Models\RBAC\Resource;
-use App\Domain\Models\RBAC\Role;
-use App\Domain\OptionalApi\Result;
-use App\Domain\OptionalApi\Result\Err;
-use App\Domain\OptionalApi\Result\Ok;
+use RavineRbac\Data\Entities\Cycle\Rbac\CyclePermission;
+use RavineRbac\Data\Entities\Cycle\Rbac\CycleResource;
+use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
+use RavineRbac\Domain\Models\RBAC\Permission;
+use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\OptionalApi\Result;
+use RavineRbac\Domain\OptionalApi\Result\Err;
+use RavineRbac\Domain\OptionalApi\Result\Ok;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 

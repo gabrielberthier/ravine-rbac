@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Repositories\Pagination;
+namespace RavineRbac\Domain\Repositories\Pagination;
 
-use App\Domain\Repositories\PersistenceOperations\Responses\PaginationResponse;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\PaginationResponse;
 
 interface PaginationInterface
 {

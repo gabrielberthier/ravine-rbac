@@ -1,7 +1,7 @@
 <?php
-namespace App\Data\Protocols\Rbac;
+namespace RavineRbac\Data\Protocols\Rbac;
 
-use App\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\RBAC\Role;
 use PhpOption\Option;
 
 interface RoleFetcherInterface

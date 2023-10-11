@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domain\Repositories;
+namespace RavineRbac\Domain\Repositories;
 
-use App\Domain\Models\User;
+use RavineRbac\Domain\Models\User;
 
 interface UserRepository
 {
@@ -13,7 +13,7 @@ interface UserRepository
     public function findAll(): array;
 
     /**
-     * @throws \App\Domain\Exceptions\UserNotFoundException
+     * @throws \RavineRbac\Domain\Exceptions\UserNotFoundException
      */
     public function findUserOfId(int $id): User;
 }

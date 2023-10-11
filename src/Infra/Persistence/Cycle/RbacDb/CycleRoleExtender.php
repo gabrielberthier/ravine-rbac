@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infra\Persistence\Cycle\RbacDb;
+namespace RavineRbac\Infra\Persistence\Cycle\RbacDb;
 
-use App\Data\Entities\Cycle\Rbac\CycleRole;
-use App\Domain\Models\RBAC\Role;
-use App\Domain\OptionalApi\Result;
-use App\Domain\OptionalApi\Result\Err;
-use App\Domain\OptionalApi\Result\Ok;
+use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
+use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\OptionalApi\Result;
+use RavineRbac\Domain\OptionalApi\Result\Err;
+use RavineRbac\Domain\OptionalApi\Result\Ok;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 

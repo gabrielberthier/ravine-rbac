@@ -1,5 +1,5 @@
 <?php
-namespace App\Infra\Persistence\Contracts;
+namespace RavineRbac\Infra\Persistence\Contracts;
 
 /**
  * Defines ability to locate entities based on scope parameters.

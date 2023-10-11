@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Repositories\PersistenceOperations\Responses;
+namespace RavineRbac\Domain\Repositories\PersistenceOperations\Responses;
 
 use JsonSerializable;
 

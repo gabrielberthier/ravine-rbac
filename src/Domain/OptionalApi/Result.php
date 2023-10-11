@@ -9,9 +9,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\OptionalApi;
+namespace RavineRbac\Domain\OptionalApi;
 
-use App\Domain\OptionalApi\Result\ResultException;
+use RavineRbac\Domain\OptionalApi\Result\ResultException;
 use Exception;
 use PhpOption\Option;
 

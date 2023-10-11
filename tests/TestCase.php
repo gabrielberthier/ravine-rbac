@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 use Tests\Traits\App\AppTestTrait;
 use Tests\Traits\App\DoublesTrait;
 use Tests\Traits\App\ErrorHandlerTrait;
-use Tests\Traits\App\InstanceManagerTrait;
 use Tests\Traits\App\RequestManagerTrait;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Entities\Cycle\Traits;
+namespace RavineRbac\Data\Entities\Cycle\Traits;
 
 use Cycle\Annotated\Annotation\Column;
 

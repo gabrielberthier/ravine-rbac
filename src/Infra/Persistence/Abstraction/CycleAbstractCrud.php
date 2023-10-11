@@ -1,9 +1,9 @@
 <?php
-namespace App\Infra\Persistence\Abstraction;
+namespace RavineRbac\Infra\Persistence\Abstraction;
 
-use App\Domain\Contracts\ModelInterface;
-use App\Infrastructure\Persistence\TargetRepositories\CycleOrmTargetRepository;
-use App\Infrastructure\Persistence\Contracts\RepositoryInterface;
+use RavineRbac\Domain\Contracts\ModelInterface;
+use RavineRbac\Infrastructure\Persistence\TargetRepositories\CycleOrmTargetRepository;
+use RavineRbac\Infrastructure\Persistence\Contracts\RepositoryInterface;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 

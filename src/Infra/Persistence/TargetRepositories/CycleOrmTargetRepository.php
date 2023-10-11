@@ -1,7 +1,7 @@
 <?php
-namespace App\Infra\Persistence\TargetRepositories;
+namespace RavineRbac\Infra\Persistence\TargetRepositories;
 
-use App\Infrastructure\Persistence\Contracts\RepositoryInterface;
+use RavineRbac\Infrastructure\Persistence\Contracts\RepositoryInterface;
 use Cycle\ORM\Select\Repository as CycleRepository;
 
 

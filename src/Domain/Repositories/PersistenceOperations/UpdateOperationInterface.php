@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Repositories\PersistenceOperations;
+namespace RavineRbac\Domain\Repositories\PersistenceOperations;
 
 
 interface UpdateOperationInterface

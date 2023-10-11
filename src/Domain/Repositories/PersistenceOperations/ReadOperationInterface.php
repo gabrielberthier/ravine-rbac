@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Repositories\PersistenceOperations;
+namespace RavineRbac\Domain\Repositories\PersistenceOperations;
 
-use App\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
 
 interface ReadOperationInterface
 {

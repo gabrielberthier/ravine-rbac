@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Application\Middleware;
+namespace RavineRbac\Application\Middleware;
 
-use App\Data\Protocols\Rbac\ResourceFetcherInterface;
-use App\Data\Protocols\Rbac\RoleFetcherInterface;
-use App\Domain\Models\RBAC\AccessControl;
-use App\Domain\Models\RBAC\ContextIntent;
-use App\Domain\Models\RBAC\Permission;
-use App\Domain\Models\RBAC\Resource;
-use App\Domain\Models\RBAC\Role;
-use App\Domain\Models\Token;
+
+use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
+use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
+use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Models\RBAC\ContextIntent;
+use RavineRbac\Domain\Models\RBAC\Permission;
+use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\Token;
 use PhpOption\LazyOption;
 use PhpOption\Option;
-use App\Presentation\Protocols\RbacFallbackInterface;
+use RavineRbac\Presentation\Protocols\RbacFallbackInterface;
 use Closure;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

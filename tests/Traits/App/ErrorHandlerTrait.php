@@ -2,7 +2,7 @@
 
 namespace Tests\Traits\App;
 
-use App\Presentation\Handlers\HttpErrorHandler;
+use RavineRbac\Presentation\Handlers\HttpErrorHandler;
 use Slim\App;
 use Slim\Middleware\ErrorMiddleware;
 

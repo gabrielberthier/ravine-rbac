@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Listener;
+namespace RavineRbac\Listener;
 
-use App\Domain\Events\Events\OnRoleCreateEvent;
-use App\Domain\Events\ListenerInterface;
-use App\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Events\Events\OnRoleCreateEvent;
+use RavineRbac\Domain\Events\ListenerInterface;
+use RavineRbac\Domain\Models\RBAC\Role;
 use Psr\Log\LoggerInterface;
 
 

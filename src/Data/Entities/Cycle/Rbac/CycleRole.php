@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Data\Entities\Cycle\Rbac;
+declare(strict_types=1);
 
-use App\Data\Entities\Cycle\Traits\TimestampsTrait;
-use App\Data\Entities\Cycle\Traits\UuidTrait;
-use App\Domain\Models\RBAC\Role;
+namespace RavineRbac\Data\Entities\Cycle\Rbac;
+
+use RavineRbac\Data\Entities\Cycle\Traits\TimestampsTrait;
+use RavineRbac\Data\Entities\Cycle\Traits\UuidTrait;
+use RavineRbac\Domain\Models\RBAC\Role;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Table\Index;

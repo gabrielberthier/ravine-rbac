@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Models\RBAC;
+namespace RavineRbac\Domain\Models\RBAC;
 
 use DateTimeInterface;
 use JsonSerializable;

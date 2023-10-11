@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infra\Persistence\Cycle\Pagination;
+namespace RavineRbac\Infra\Persistence\Cycle\Pagination;
 
 
-use App\Domain\Repositories\Pagination\PaginationInterface;
-use App\Domain\Repositories\PersistenceOperations\Responses\PaginationResponse;
+use RavineRbac\Domain\Repositories\Pagination\PaginationInterface;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\PaginationResponse;
 use Cycle\Database\Query\SelectQuery;
 use Cycle\ORM\Select;
 use Spiral\Pagination\Paginator;

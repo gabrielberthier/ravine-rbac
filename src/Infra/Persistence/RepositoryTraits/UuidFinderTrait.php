@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Infra\Persistence\RepositoryTraits;
+namespace RavineRbac\Infra\Persistence\RepositoryTraits;
 
-use App\Infrastructure\Uuid\UuidEncoder;
+use RavineRbac\Infrastructure\Uuid\UuidEncoder;
 
 trait UuidFinderTrait
 {

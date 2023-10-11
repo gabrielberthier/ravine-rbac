@@ -1,7 +1,10 @@
 <?php
-namespace App\Application\Protocols;
 
-use App\Domain\Models\RBAC\{Role, Resource, ContextIntent, Permission};
+declare(strict_types=1);
+
+namespace RavineRbac\Application\Protocols;
+
+use RavineRbac\Domain\Models\RBAC\{Role, Resource, ContextIntent, Permission};
 
 interface RbacFallbackInterface
 {

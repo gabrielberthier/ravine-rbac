@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Models\Assets\Types\Interfaces;
+namespace RavineRbac\Domain\Models\Assets\Types\Interfaces;
 
-use App\Domain\Dto\Asset\Command\CreateAsset;
-use App\Domain\Models\Assets\AbstractAsset;
+use RavineRbac\Domain\Dto\Asset\Command\CreateAsset;
+use RavineRbac\Domain\Models\Assets\AbstractAsset;
 
 interface AssetFactoryInterface
 {

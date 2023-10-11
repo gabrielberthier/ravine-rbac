@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Repositories;
+namespace RavineRbac\Domain\Repositories;
 
-use App\Domain\Contracts\ModelInterface;
-use App\Domain\Models\Marker\Marker;
-use App\Domain\Models\Museum;
-use App\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
+use RavineRbac\Domain\Contracts\ModelInterface;
+use RavineRbac\Domain\Models\Marker\Marker;
+use RavineRbac\Domain\Models\Museum;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
 
 interface MarkerRepositoryInterface
 {

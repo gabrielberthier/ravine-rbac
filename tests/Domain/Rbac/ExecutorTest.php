@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Rbac;
 
-use App\Domain\Models\Account;
-use App\Domain\Models\RBAC\AccessControl;
-use App\Domain\Models\RBAC\ContextIntent;
-use App\Domain\Models\RBAC\Permission;
-use App\Domain\Models\RBAC\Resource;
-use App\Domain\Models\RBAC\Role;
-use App\Domain\Models\RBAC\RoleProfile;
+use RavineRbac\Domain\Models\Account;
+use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Models\RBAC\ContextIntent;
+use RavineRbac\Domain\Models\RBAC\Permission;
+use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\RBAC\RoleProfile;
 use PHPUnit\Framework\TestCase;
 
 

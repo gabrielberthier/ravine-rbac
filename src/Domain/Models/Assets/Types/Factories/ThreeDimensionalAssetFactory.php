@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Models\Assets\Types\Factories;
+namespace RavineRbac\Domain\Models\Assets\Types\Factories;
 
-use App\Domain\Dto\Asset\Command\CreateAsset;
-use App\Domain\Models\Assets\AbstractAsset;
-use App\Domain\Models\Assets\ThreeDimensionalAsset;
-use App\Domain\Models\Assets\Types\Interfaces\ConstrainedAssetFactoryInterface;
+use RavineRbac\Domain\Dto\Asset\Command\CreateAsset;
+use RavineRbac\Domain\Models\Assets\AbstractAsset;
+use RavineRbac\Domain\Models\Assets\ThreeDimensionalAsset;
+use RavineRbac\Domain\Models\Assets\Types\Interfaces\ConstrainedAssetFactoryInterface;
 
 
 class ThreeDimensionalAssetFactory implements ConstrainedAssetFactoryInterface

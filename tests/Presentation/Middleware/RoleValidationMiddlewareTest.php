@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Presentation\Middleware;
 
-use App\Data\Protocols\Rbac\ResourceFetcherInterface;
-use App\Data\Protocols\Rbac\RoleFetcherInterface;
-use App\Domain\Models\RBAC\AccessControl;
-use App\Domain\Models\RBAC\ContextIntent;
-use App\Domain\Models\RBAC\Permission;
-use App\Domain\Models\RBAC\Resource;
-use App\Domain\Models\RBAC\Role;
-use App\Presentation\Middleware\RoleValidationMiddleware;
-use App\Presentation\Protocols\RbacFallbackInterface;
-use Middlewares\Utils\RequestHandler;
+use RavineRbac\Application\Middleware\RoleValidationMiddleware;
+use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
+use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
+use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Models\RBAC\ContextIntent;
+use RavineRbac\Domain\Models\RBAC\Permission;
+use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Presentation\Protocols\RbacFallbackInterface;
 use Nyholm\Psr7\Response;
 use PhpOption\Option;
 use PHPUnit\Framework\MockObject\MockObject;

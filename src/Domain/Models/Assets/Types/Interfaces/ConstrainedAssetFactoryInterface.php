@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Models\Assets\Types\Interfaces;
+namespace RavineRbac\Domain\Models\Assets\Types\Interfaces;
 
 interface ConstrainedAssetFactoryInterface extends AssetFactoryInterface
 {

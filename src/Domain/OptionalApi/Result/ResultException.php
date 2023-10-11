@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\OptionalApi\Result;
+namespace RavineRbac\Domain\OptionalApi\Result;
 
 use Exception;
 

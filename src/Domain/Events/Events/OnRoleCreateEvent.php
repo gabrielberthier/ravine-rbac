@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Domain\Events\Events;
+namespace RavineRbac\Domain\Events\Events;
 
-use App\Domain\Events\Event;
-use App\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Events\Event;
+use RavineRbac\Domain\Models\RBAC\Role;
 
 
 class OnRoleCreateEvent extends Event

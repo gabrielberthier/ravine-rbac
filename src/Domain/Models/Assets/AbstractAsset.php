@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Models\Assets;
+namespace RavineRbac\Domain\Models\Assets;
 
-use App\Domain\Contracts\ModelInterface;
-use App\Domain\Dto\Asset\Command\CreateAsset;
+use RavineRbac\Domain\Contracts\ModelInterface;
+use RavineRbac\Domain\Dto\Asset\Command\CreateAsset;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

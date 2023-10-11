@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Repositories;
+namespace RavineRbac\Domain\Repositories;
 
-use App\Domain\Exceptions\Security\DuplicatedTokenException;
-use App\Domain\Models\Security\SignatureToken;
+use RavineRbac\Domain\Exceptions\Security\DuplicatedTokenException;
+use RavineRbac\Domain\Models\Security\SignatureToken;
 
 interface SignatureTokenRepositoryInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Exceptions\Account;
+namespace RavineRbac\Domain\Exceptions\Account;
 
 class UserAlreadyRegisteredException
 {

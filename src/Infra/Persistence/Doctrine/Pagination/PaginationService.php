@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Infra\Persistence\Doctrine\Pagination;
+namespace RavineRbac\Infra\Persistence\Doctrine\Pagination;
 
-use App\Domain\Repositories\Pagination\PaginationInterface;
-use App\Domain\Repositories\PersistenceOperations\Responses\PaginationResponse;
+use RavineRbac\Domain\Repositories\Pagination\PaginationInterface;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\PaginationResponse;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;

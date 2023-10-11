@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Models\Assets;
+namespace RavineRbac\Domain\Models\Assets;
 
-use App\Domain\Models\Assets\AbstractAsset;
+use RavineRbac\Domain\Models\Assets\AbstractAsset;
 
 class VideoAsset extends AbstractAsset
 {

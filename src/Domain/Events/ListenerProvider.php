@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Events;
+namespace RavineRbac\Domain\Events;
 
 
 use Psr\EventDispatcher\ListenerProviderInterface;

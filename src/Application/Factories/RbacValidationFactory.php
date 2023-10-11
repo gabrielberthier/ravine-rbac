@@ -1,13 +1,13 @@
 <?php
-namespace App\Application\Factories;
+namespace RavineRbac\Application\Factories;
 
-use App\Data\Protocols\Rbac\ResourceFetcherInterface;
-use App\Data\Protocols\Rbac\RoleFetcherInterface;
-use App\Domain\Models\RBAC\AccessControl;
-use App\Domain\Models\RBAC\Permission;
-use App\Domain\Models\RBAC\Resource;
-use App\Presentation\Middleware\RoleValidationMiddleware;
-use App\Presentation\Protocols\RbacFallbackInterface;
+use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
+use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
+use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Models\RBAC\Permission;
+use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Presentation\Middleware\RoleValidationMiddleware;
+use RavineRbac\Presentation\Protocols\RbacFallbackInterface;
 use Psr\Container\ContainerInterface;
 
 class RbacValidationFactory

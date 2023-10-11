@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Domain\Models\Assets\Types;
+namespace RavineRbac\Domain\Models\Assets\Types;
 
-use App\Domain\Dto\Asset\Command\CreateAsset;
-use App\Domain\Models\Assets\AbstractAsset;
-use App\Domain\Models\Assets\Types\Exceptions\NotAllowedAssetType;
-use App\Domain\Models\Assets\Types\Factories\PictureAssetFactory;
-use App\Domain\Models\Assets\Types\Factories\TextureAssetFactory;
-use App\Domain\Models\Assets\Types\Factories\ThreeDimensionalAssetFactory;
-use App\Domain\Models\Assets\Types\Factories\VideoAssetFactory;
-use App\Domain\Models\Assets\Types\Helpers\AllowedExtensionChecker;
-use App\Domain\Models\Assets\Types\Interfaces\AssetFactoryInterface;
+use RavineRbac\Domain\Dto\Asset\Command\CreateAsset;
+use RavineRbac\Domain\Models\Assets\AbstractAsset;
+use RavineRbac\Domain\Models\Assets\Types\Exceptions\NotAllowedAssetType;
+use RavineRbac\Domain\Models\Assets\Types\Factories\PictureAssetFactory;
+use RavineRbac\Domain\Models\Assets\Types\Factories\TextureAssetFactory;
+use RavineRbac\Domain\Models\Assets\Types\Factories\ThreeDimensionalAssetFactory;
+use RavineRbac\Domain\Models\Assets\Types\Factories\VideoAssetFactory;
+use RavineRbac\Domain\Models\Assets\Types\Helpers\AllowedExtensionChecker;
+use RavineRbac\Domain\Models\Assets\Types\Interfaces\AssetFactoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class AssetFactoryFacade implements AssetFactoryInterface

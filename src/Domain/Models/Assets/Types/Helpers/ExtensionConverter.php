@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Models\Assets\Types\Helpers;
+namespace RavineRbac\Domain\Models\Assets\Types\Helpers;
 
 
-use App\Domain\Models\Assets\Types\Interfaces\ConstrainedAssetFactoryInterface;
+use RavineRbac\Domain\Models\Assets\Types\Interfaces\ConstrainedAssetFactoryInterface;
 
 class ExtensionConverter
 {

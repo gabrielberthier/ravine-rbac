@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Infra\Persistence\MemoryRepositories;
+namespace RavineRbac\Infra\Persistence\MemoryRepositories;
 
-use App\Domain\Dto\AccountDto;
-use App\Domain\Models\Account;
-use App\Domain\Models\Enums\AuthTypes;
-use App\Domain\Repositories\AccountRepository;
+use RavineRbac\Domain\Dto\AccountDto;
+use RavineRbac\Domain\Models\Account;
+use RavineRbac\Domain\Models\Enums\AuthTypes;
+use RavineRbac\Domain\Repositories\AccountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
@@ -73,7 +73,7 @@ class InMemoryAccountRepository implements AccountRepository
     /**
      * Inserts a user account.
      *
-     * @throws \App\Domain\Exceptions\Account\UserAlreadyRegisteredException
+     * @throws \RavineRbac\Domain\Exceptions\Account\UserAlreadyRegisteredException
      */
     public function insert(AccountDto $account): Account
     {

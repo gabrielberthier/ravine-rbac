@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Models;
+namespace RavineRbac\Domain\Models;
 
 use JsonSerializable;
 use Ramsey\Uuid\UuidInterface;

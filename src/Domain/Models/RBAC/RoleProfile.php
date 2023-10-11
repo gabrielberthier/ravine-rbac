@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Models\RBAC;
+namespace RavineRbac\Domain\Models\RBAC;
 
-use App\Domain\Models\Account;
+use RavineRbac\Domain\Models\Account;
 use DateTimeInterface;
 
 class RoleProfile

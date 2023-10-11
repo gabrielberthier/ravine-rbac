@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Events;
+namespace RavineRbac\Domain\Events;
 
 /**
  * @template T Event

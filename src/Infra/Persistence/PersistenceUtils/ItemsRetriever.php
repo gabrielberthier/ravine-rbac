@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infra\Persistence\PersistenceUtils;
+namespace RavineRbac\Infra\Persistence\PersistenceUtils;
 
-use App\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
-use App\Domain\Repositories\PersistenceOperations\Responses\SearchResult;
-use App\Infrastructure\Persistence\Doctrine\Pagination\PaginationService;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\SearchResult;
+use RavineRbac\Infrastructure\Persistence\Doctrine\Pagination\PaginationService;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 
 class ItemsRetriever

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Presentation\Middleware;
 
-use App\Data\Protocols\Rbac\ResourceFetcherInterface;
-use App\Data\Protocols\Rbac\RoleFetcherInterface;
-use App\Domain\Models\RBAC\AccessControl;
-use App\Domain\Models\RBAC\Resource;
-use App\Presentation\Factories\RbacValidationFactory;
-use App\Presentation\Middleware\RoleValidationMiddleware;
+use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
+use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
+use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Presentation\Factories\RbacValidationFactory;
+use RavineRbac\Presentation\Middleware\RoleValidationMiddleware;
 use PhpOption\Some;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\TestCase;

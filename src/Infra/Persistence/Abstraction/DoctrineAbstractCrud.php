@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Infra\Persistence\Abstraction;
+namespace RavineRbac\Infra\Persistence\Abstraction;
 
-use App\Domain\Contracts\ModelInterface;
-use App\Infrastructure\Persistence\TargetRepositories\DoctrineTargetRepository;
+use RavineRbac\Domain\Contracts\ModelInterface;
+use RavineRbac\Infrastructure\Persistence\TargetRepositories\DoctrineTargetRepository;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
-use App\Infrastructure\Persistence\Contracts\RepositoryInterface;
+use RavineRbac\Infrastructure\Persistence\Contracts\RepositoryInterface;
 
 /**
  * @template T

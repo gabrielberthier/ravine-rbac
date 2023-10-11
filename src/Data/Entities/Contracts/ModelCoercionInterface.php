@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Data\Entities\Contracts;
+declare(strict_types=1);
+
+namespace RavineRbac\Data\Entities\Contracts;
 
 /**
  * @template T

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infra\Persistence\Abstraction;
+namespace RavineRbac\Infra\Persistence\Abstraction;
 
-use App\Domain\Contracts\ModelInterface;
-use App\Domain\Repositories\PersistenceOperations\CrudOperationsInterface;
-use App\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
-use App\Infrastructure\Persistence\Contracts\RepositoryInterface;
-use App\Infrastructure\Persistence\PersistenceUtils\ItemsRetriever;
+use RavineRbac\Domain\Contracts\ModelInterface;
+use RavineRbac\Domain\Repositories\PersistenceOperations\CrudOperationsInterface;
+use RavineRbac\Domain\Repositories\PersistenceOperations\Responses\ResultSetInterface;
+use RavineRbac\Infrastructure\Persistence\Contracts\RepositoryInterface;
+use RavineRbac\Infrastructure\Persistence\PersistenceUtils\ItemsRetriever;
 
 /**
  * @template T of object
