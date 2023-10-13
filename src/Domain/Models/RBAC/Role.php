@@ -8,7 +8,7 @@ use WeakMap;
 
 class Role implements JsonSerializable
 {
-    /** @var WeakMap<Resource, Permission[]> */
+    /** @var WeakMap<ResourceTypeType, Permission[]> */
     public readonly WeakMap $keyMap;
     /** @var Role[] */
     public readonly array $extendedRoles;
@@ -26,9 +26,9 @@ class Role implements JsonSerializable
         $this->updatedAt = new \DateTimeImmutable();
     }
 
-    public function addPermissionToResource(
+    public function addPermissionToResourceType(
         Permission $permission,
-        Resource $resource
+        ResourceType $resource
     ): void {
         if (!$this->keyMap->offsetExists($resource)) {
             $this->keyMap[$resource] = [];
@@ -42,12 +42,12 @@ class Role implements JsonSerializable
         $this->extendedRoles[] = $role;
     }
 
-    public function getPermissionsFromResource(Resource $resource): array
+    public function getPermissionsFromResourceType(ResourceType $resource): array
     {
         return $this->keyMap[$resource];
     }
 
-    public function canAcess(Resource $resource, Permission|ContextIntent $permission): bool
+    public function canAcess(ResourceType $resource, Permission|ContextIntent $permission): bool
     {
         if ($this->isActive) {
             $permissionSet =

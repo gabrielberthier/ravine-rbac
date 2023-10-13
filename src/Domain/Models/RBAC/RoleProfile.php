@@ -24,7 +24,7 @@ class RoleProfile
         array_push($this->roles, $role);
     }
 
-    public function canAccess(Resource $resource, ContextIntent|Permission $permission): bool
+    public function canAccess(ResourceType $resource, ContextIntent|Permission $permission): bool
     {
         foreach ($this->roles as $role) {
             if ($role->canAcess($resource, $permission)) {

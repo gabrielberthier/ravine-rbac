@@ -10,13 +10,11 @@ use RavineRbac\Domain\Models\Enums\AuthTypes;
 
 interface AccountRepository
 {
-    public function findByMail(string $mail): ?Account;
-
     public function findByAccess(string $access): ?Account;
+    
+    public function findById(int $id): ?Account;
 
     public function findByUUID(string $uuid): ?Account;
-
-    public function findWithAuthType(string $email, AuthTypes $authType): ?Account;
 
     public function insert(AccountDto $account): Account;
 }

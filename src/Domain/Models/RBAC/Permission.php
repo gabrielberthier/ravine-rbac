@@ -18,7 +18,7 @@ readonly class Permission
 
     public static function makeWithPreferableName(
         ContextIntent $contextIntent,
-        Resource|string $resource
+        ResourceType|string $resource
     ) {
         $resourceName = is_string($resource) ? $resource : $resource->name;
 
@@ -41,6 +41,7 @@ readonly class Permission
             }
             $intent = $constraint->intent;
         }
-        return $intent === $this->intent || $this->intent === ContextIntent::FREEPASS;
+
+        return $intent === ContextIntent::FREEPASS || $intent === $this->intent;
     }
 }

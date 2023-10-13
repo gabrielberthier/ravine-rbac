@@ -2,7 +2,7 @@
 namespace RavineRbac\Infra\Persistence\Cycle\RbacDb;
 
 use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Domain\OptionalApi\Result;
 use RavineRbac\Domain\OptionalApi\Result\Err;
@@ -18,7 +18,7 @@ class CycleRoleAccessRepository
     /**
      * @return Result<CycleRole,\Exception>
      */
-    public function getRoleWithPermissions(Role $role, Resource $resource): Result
+    public function getRoleWithPermissions(Role $role, ResourceType $resource): Result
     {
         try {
             $roleDb = $this->orm

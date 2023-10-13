@@ -9,7 +9,7 @@ use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Domain\Models\Token;
 use PhpOption\LazyOption;
@@ -25,7 +25,7 @@ class RoleValidationMiddleware implements Middleware
 {
     private ?RbacFallbackInterface $bypassFallback = null;
     private ?Permission $predefinedPermission = null;
-    private Resource|string $resource;
+    private ResourceType|string $resource;
 
     public function __construct(
         public readonly AccessControl $accessControl,
@@ -64,7 +64,7 @@ class RoleValidationMiddleware implements Middleware
         throw new HttpForbiddenAccessException();
     }
 
-    public function setResourceTarget(Resource|string $resource): self
+    public function setResourceTarget(ResourceType|string $resource): self
     {
         $this->resource = $resource;
 
@@ -116,12 +116,12 @@ class RoleValidationMiddleware implements Middleware
      * will use a fallback method to fetch from another mean using an implementation
      * of ResourceFetcherInterface. 
      * 
-     * @return Option<Resource>
+     * @return Option<ResourceType>
      */
     public function getOptionResource(): Option
     {
         return $this->accessControl
-            ->getResource($this->resource)
+            ->getResourceType($this->resource)
             ->orElse(
                 new LazyOption(
                     $this->resourceFallback(...)
@@ -164,14 +164,14 @@ class RoleValidationMiddleware implements Middleware
         return $returned;
     }
 
-    /** @return Option<Resource> */
+    /** @return Option<ResourceType> */
     private function resourceFallback(): Option
     {
         return $this->resourceFetcher
             ->getResource($this->resource)
             ->map(
-                function (Resource $resource): Resource {
-                    $this->accessControl->appendResource($resource);
+                function (ResourceType $resource): ResourceType {
+                    $this->accessControl->appendResourceType($resource);
 
                     return $resource;
                 }

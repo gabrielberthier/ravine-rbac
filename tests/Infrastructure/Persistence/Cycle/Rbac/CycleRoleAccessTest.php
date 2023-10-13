@@ -9,7 +9,7 @@ use RavineRbac\Data\Entities\Cycle\Rbac\CycleResource;
 use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Domain\Models\RBAC\Role;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
@@ -69,7 +69,7 @@ final class CycleRoleAccessTest extends TestCase
     public function testShouldInsertRole()
     {
         $roleObject = new Role("resource_owner", "Resource Owner Role");
-        $resource = new Resource('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
         $canCreate = Permission::makeWithPreferableName(ContextIntent::READ, $resource);
         $role = $this->sut->create(
             $roleObject,
@@ -83,7 +83,7 @@ final class CycleRoleAccessTest extends TestCase
     public function testShouldGetLastInsertedRoleByName()
     {
         $roleObject = new Role("resource_owner", "Resource Owner Role");
-        $resource = new Resource('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
         $canCreate = Permission::makeWithPreferableName(ContextIntent::READ, $resource);
         $this->sut->create(
             $roleObject,
@@ -105,7 +105,7 @@ final class CycleRoleAccessTest extends TestCase
         $roleObject = new Role("resource_owner", "Resource Owner Role");
         $roleObject2 = new Role("resource_owner2", "Child Resource Owner Role");
 
-        $resource = new Resource('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
         $canCreate = Permission::makeWithPreferableName(ContextIntent::READ, $resource);
 
         $this->sut->create(

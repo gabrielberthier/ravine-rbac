@@ -4,7 +4,7 @@ namespace RavineRbac\Domain\Models\RBAC;
 use DateTimeImmutable;
 use DateTimeInterface;
 
-class Resource
+class ResourceType
 {
     public DateTimeInterface $createdAt;
     public DateTimeInterface $updatedAt;

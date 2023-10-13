@@ -7,19 +7,19 @@ use PhpOption\Some;
 
 /**
  * AccessControl is a Facade to interact with Roles available in the system.
- * It will handle most authorization functions and 
+ * It will handle most authorization functions and insertions.
  */
 class AccessControl implements \JsonSerializable
 {
     /** @var array<string, Role> */
     public array $roles = [];
 
-    /** @var array<string, Resource> */
+    /** @var array<string, ResourceType> */
     public array $resources = [];
 
     public function addPermissionToRole(
         Role|string $role,
-        Resource|string $resource,
+        ResourceType|string $resource,
         ContextIntent $intent,
         string $permissionName = ""
     ): self {
@@ -29,7 +29,7 @@ class AccessControl implements \JsonSerializable
 
         $roleRef = $this->extractName($role);
         $resourceRef = $this->extractName($resource);
-        $this->roles[$roleRef]->addPermissionToResource(
+        $this->roles[$roleRef]->addPermissionToResourceType(
             $permission,
             $this->resources[$resourceRef]
         );
@@ -39,17 +39,17 @@ class AccessControl implements \JsonSerializable
 
     /**
      * @param Role|string $role
-     * @param Resource $permission
+     * @param ResourceType $permission
      * @param Permission[] $permission
      */
     public function grantAccessOn(
         Role|string $role,
-        Resource $resource,
+        ResourceType $resource,
         array $permissions
     ): self {
         $roleRef = $this->extractName($role);
         foreach ($permissions as $permission) {
-            $this->roles[$roleRef]->addPermissionToResource(
+            $this->roles[$roleRef]->addPermissionToResourceType(
                 $permission,
                 $resource
             );
@@ -60,14 +60,14 @@ class AccessControl implements \JsonSerializable
 
     public function tryAccess(
         Role|string $role,
-        Resource|string $resource,
+        ResourceType|string $resource,
         ContextIntent|Permission $permission,
         ?callable $fallback = null
     ): bool {
         $result = $this
-            ->getResource($resource)
+            ->getResourceType($resource)
             ->map(
-                fn(Resource $resource): bool => $this
+                fn(ResourceType $resource): bool => $this
                     ->getRole($role)
                     ->map(
                         static fn(Role $role): bool => $role->canAcess(
@@ -93,7 +93,7 @@ class AccessControl implements \JsonSerializable
             $this->roles[$role->name] = $role;
 
             foreach ($role->keyMap as $resource => $permissions) {
-                $this->appendResource($resource);
+                $this->appendResourceType($resource);
                 $this->grantAccessOn($role, $resource, $permissions);
             }
         }
@@ -146,21 +146,22 @@ class AccessControl implements \JsonSerializable
                 if (!key_exists($ref, $this->roles)) {
                     continue;
                 }
+
                 $role->extendRole($this->roles[$ref]);
             }
         });
     }
 
     /**
-     * @return Resource[]
+     * @return ResourceType[]
      */
-    public function getResources(): array
+    public function getResourceTypes(): array
     {
         return array_values($this->resources);
     }
 
-    /** @return Option<Resource> */
-    public function getResource(Resource|string $resource): Option
+    /** @return Option<ResourceType> */
+    public function getResourceType(ResourceType|string $resource): Option
     {
         $nameUtility = $this->extractName($resource);
 
@@ -169,9 +170,9 @@ class AccessControl implements \JsonSerializable
         return $exists ? new Some($this->resources[$nameUtility]) : None::create();
     }
 
-    public function createResource(string $name, string $description): Resource
+    public function createResourceType(string $name, string $description): ResourceType
     {
-        $resource = new Resource($name, $description);
+        $resource = new ResourceType($name, $description);
 
         if (!key_exists($name, $this->resources)) {
             $this->resources[$name] = $resource;
@@ -180,7 +181,7 @@ class AccessControl implements \JsonSerializable
         return $resource;
     }
 
-    public function appendResource(Resource $resource): self
+    public function appendResourceType(ResourceType $resource): self
     {
         if (!key_exists($resource->name, $this->resources)) {
             $this->resources[$resource->name] = $resource;
@@ -201,7 +202,7 @@ class AccessControl implements \JsonSerializable
         ];
     }
 
-    private function extractName(Resource|Role|Permission|string $subject): string
+    private function extractName(ResourceType|Role|Permission|string $subject): string
     {
         return is_string($subject) ? $subject : $subject->name;
     }

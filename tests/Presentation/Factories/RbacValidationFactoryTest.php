@@ -11,7 +11,7 @@ use RavineRbac\Application\Middleware\RoleValidationMiddleware;
 use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
 use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use PhpOption\Some;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\TestCase;
@@ -29,13 +29,13 @@ class RbacValidationFactoryTest extends TestCase
     {
         $validator = $this->sut;
         $subject = $validator('video');
-        $this->accessControl->method('getResource')->willReturn(
+        $this->accessControl->method('getResourceType')->willReturn(
             new Some(
-                new Resource('video', 'description')
+                new ResourceType('video', 'description')
             )
         );
 
-        $this->accessControl->expects(self::once())->method('getResource')->with('video');
+        $this->accessControl->expects(self::once())->method('getResourceType')->with('video');
 
         $this->assertInstanceOf(RoleValidationMiddleware::class, $subject);
         $this->assertSame('video', $subject->getOptionResource()->get()->name);

@@ -5,7 +5,7 @@ use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
 use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
 use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Psr\Container\ContainerInterface;
@@ -26,7 +26,7 @@ class RbacValidationFactory
         );
     }
 
-    public function __invoke(Resource|string $target): RoleValidationMiddleware
+    public function __invoke(ResourceType|string $target): RoleValidationMiddleware
     {
         return $this->middleware->setResourceTarget($target);
     }

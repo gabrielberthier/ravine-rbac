@@ -8,7 +8,7 @@ use RavineRbac\Domain\Models\Account;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Domain\Models\RBAC\RoleProfile;
 use PHPUnit\Framework\TestCase;
@@ -28,9 +28,9 @@ class ExecutorTest extends TestCase
     public function testShouldReturnTrueForAccessableResource()
     {
         $role = new Role('image_role', '');
-        $resource = new Resource('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
         $canCreate = new Permission('can:create', ContextIntent::READ);
-        $role->addPermissionToResource($canCreate, $resource);
+        $role->addPermissionToResourceType($canCreate, $resource);
         $this->profile->addRole($role);
 
         $this->assertTrue($this->profile->canAccess($resource, ContextIntent::READ));
@@ -39,9 +39,9 @@ class ExecutorTest extends TestCase
     public function testShouldReturnFalseForInaccessableResource()
     {
         $role = new Role('image_role', '');
-        $resource = new Resource('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
         $canCreate = new Permission('can:create', ContextIntent::READ);
-        $role->addPermissionToResource($canCreate, $resource);
+        $role->addPermissionToResourceType($canCreate, $resource);
         $this->profile->addRole($role);
 
         $this->assertFalse($this->profile->canAccess($resource, ContextIntent::CREATE));
@@ -50,7 +50,7 @@ class ExecutorTest extends TestCase
     public function testAccessControlEmitsStringObject()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResource('image', 'images resources');
+        $resource = $accessControl->createResourceType('image', 'images resources');
         $role = $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole('image:role', $resource, ContextIntent::CREATE)
@@ -65,7 +65,7 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillAllowPass()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResource('image', 'images resources');
+        $resource = $accessControl->createResourceType('image', 'images resources');
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(
@@ -86,7 +86,7 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillNotAllowPassForDifferentIntent()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResource('image', 'images resources');
+        $resource = $accessControl->createResourceType('image', 'images resources');
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(
@@ -107,7 +107,7 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillAllowPassForDifferentIntentButTruethyFallback()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResource('image', 'images resources');
+        $resource = $accessControl->createResourceType('image', 'images resources');
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(
@@ -131,7 +131,7 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillNotAllowPassForDifferentIntentAndFalsyFallback()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResource('image', 'images resources');
+        $resource = $accessControl->createResourceType('image', 'images resources');
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(

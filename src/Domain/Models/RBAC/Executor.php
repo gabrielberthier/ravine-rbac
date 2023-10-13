@@ -11,9 +11,9 @@ class Executor
         $account = new Account(null, 'mail', 'username', 'pass', 'COMMON');
         $accountRole = new RoleProfile($account);
         $role = new Role('image_role', '');
-        $resource = new Resource('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
         $canCreate = new Permission('can:create', ContextIntent::READ);
-        $role->addPermissionToResource($canCreate, $resource);
+        $role->addPermissionToResourceType($canCreate, $resource);
         $accountRole->addRole($role);
 
         foreach ($accountRole->roles as $role) {

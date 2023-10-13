@@ -22,6 +22,6 @@ class RoleCreator
     ) {
         $role = $this->accessControl->forgeRole($roleName, $description)->getRole($roleName);
 
-        return $this->roleStorer->store($role);
+        return $this->roleStorer->store($role->get());
     }
 }

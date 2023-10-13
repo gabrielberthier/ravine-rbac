@@ -6,7 +6,7 @@ namespace RavineRbac\Data\Entities\Cycle\Rbac;
 
 use RavineRbac\Data\Entities\Cycle\Traits\TimestampsTrait;
 use RavineRbac\Data\Entities\Cycle\Traits\UuidTrait;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\HasMany;
@@ -48,7 +48,7 @@ class CycleResource
         $this->permissions = new ArrayCollection();
     }
 
-    public static function fromModel(Resource $resource)
+    public static function fromModel(ResourceType $resource)
     {
         return (new self())
             ->setCreatedAt($resource->createdAt)

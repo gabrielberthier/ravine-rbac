@@ -11,7 +11,7 @@ use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\Resource;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Nyholm\Psr7\Response;
@@ -72,20 +72,20 @@ class RoleValidationMiddlewareTest extends TestCase
     }
     public function testShouldRetrieveResourceIfItExistsInAccessControl()
     {
-        $this->accessControl->createResource('video', 'description');
+        $this->accessControl->createResourceType('video', 'description');
         $resource = $this->sut->getOptionResource()->get();
         $this->assertEquals($resource->name, 'video');
-        $this->assertInstanceOf(Resource::class, $resource);
+        $this->assertInstanceOf(ResourceType::class, $resource);
     }
 
     public function testShouldRetrieveResourceIfItDoesNOTExistInAccessControlButIsAvailableInRoleFetcher()
     {
         $this->resourceFetcher->method('getResource')->willReturn(
-            Option::fromValue(new Resource('video', 'description'))
+            Option::fromValue(new ResourceType('video', 'description'))
         );
         $resource = $this->sut->getOptionResource()->get();
         $this->assertEquals($resource->name, 'video');
-        $this->assertInstanceOf(Resource::class, $resource);
+        $this->assertInstanceOf(ResourceType::class, $resource);
     }
 
     public function testShouldReturnNothingWhenUnavailableResource()
@@ -131,11 +131,11 @@ class RoleValidationMiddlewareTest extends TestCase
     public function testShouldPassWhenNotAllowedRoleAndResourceButFallbackAvailable()
     {
         $this->accessControl->forgeRole('admin', 'description');
-        $this->accessControl->createResource('video', 'description');
+        $this->accessControl->createResourceType('video', 'description');
         $this->sut->setByPassFallback(new class () implements RbacFallbackInterface {
             public function retry(
                 Role|string $role,
-                Resource|string $resource,
+                ResourceType|string $resource,
                 ContextIntent|Permission $permission
             ): bool {
                 return true;
@@ -149,7 +149,7 @@ class RoleValidationMiddlewareTest extends TestCase
 
     public function testShouldThrowWhenRoleFromAccessControlHasNOPermissionToAccess()
     {
-        $this->accessControl->createResource('video', 'description');
+        $this->accessControl->createResourceType('video', 'description');
         $this->accessControl->forgeRole('admin', 'description');
         $request = $this->getRequest()->withMethod('POST');
 
@@ -160,14 +160,14 @@ class RoleValidationMiddlewareTest extends TestCase
 
     public function testShouldThrowWhenRoleFromFetcherHasNOPermissionToAccess()
     {
-        $this->accessControl->createResource('video', 'description');
+        $this->accessControl->createResourceType('video', 'description');
         $this->accessControl->forgeRole('admin', 'description');
         $request = $this->getRequest()->withMethod('POST');
 
         $role = new Role('admin', 'description');
-        $resource = new Resource('video', '');
+        $resource = new ResourceType('video', '');
 
-        $role->addPermissionToResource(
+        $role->addPermissionToResourceType(
             Permission::makeWithPreferableName(ContextIntent::READ, $resource),
             $resource
         );
@@ -183,10 +183,10 @@ class RoleValidationMiddlewareTest extends TestCase
     public function testShouldPassWhenRoleFromFetcherHasPermissionToAccess()
     {
         $role = new Role('admin', 'description');
-        $resource = new Resource('video', '');
+        $resource = new ResourceType('video', '');
 
-        $this->accessControl->appendResource($resource);
-        $role->addPermissionToResource(
+        $this->accessControl->appendResourceType($resource);
+        $role->addPermissionToResourceType(
             Permission::makeWithPreferableName(ContextIntent::CREATE, $resource),
             $resource
         );
@@ -207,7 +207,7 @@ class RoleValidationMiddlewareTest extends TestCase
     # Success cases 👇
     public function testShouldPassWhenRolePresentInAccessControlHasPermissionToAccess()
     {
-        $resource = $this->accessControl->createResource('video', 'description');
+        $resource = $this->accessControl->createResourceType('video', 'description');
         $this->accessControl->forgeRole('admin', 'description')->grantAccessOn(
             'admin',
             $resource,
