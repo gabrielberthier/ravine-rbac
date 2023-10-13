@@ -19,7 +19,13 @@ $accessControl = AccessControl::get(
     startProvider: fn(): array #array of roles => ... 
 );
 
+// User is trying to create a video using their role
 
+$result = $accessControl->tryAccess('role', 'videos', ContextIntent::CREATE);
+
+if($result){
+    // Do your thing
+}
 
 
 ```
