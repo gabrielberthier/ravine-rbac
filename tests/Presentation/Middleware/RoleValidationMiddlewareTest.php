@@ -6,8 +6,6 @@ namespace Tests\Presentation\Middleware;
 
 use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
-use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
-use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
@@ -15,8 +13,6 @@ use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Nyholm\Psr7\Response;
-use PhpOption\Option;
-use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
@@ -27,72 +23,16 @@ class RoleValidationMiddlewareTest extends TestCase
     private \Prophecy\Prophet $prophet;
     private RoleValidationMiddleware $sut;
     private AccessControl $accessControl;
-    private MockObject|RoleFetcherInterface $roleFetcher;
-    private MockObject|ResourceFetcherInterface $resourceFetcher;
 
     public function setUp(): void
     {
         $this->accessControl = new AccessControl();
-        $roleFetcher = $this->createMock(RoleFetcherInterface::class);
-        $resourceFetcher = $this->createMock(ResourceFetcherInterface::class);
-
-        $this->roleFetcher = $roleFetcher;
-        $this->resourceFetcher = $resourceFetcher;
 
         $this->sut = new RoleValidationMiddleware(
             $this->accessControl,
-            $roleFetcher,
-            $resourceFetcher
+            resource: "video"
         );
 
-        $this->sut->setResourceTarget("video");
-    }
-
-    public function testShouldRetrieveRoleIfItExistsInAccessControl()
-    {
-        $this->accessControl->forgeRole('common', 'description');
-        $role = $this->sut->getOptionRole('common')->get();
-        $this->assertEquals($role->name, 'common');
-        $this->assertInstanceOf(Role::class, $role);
-    }
-
-    public function testShouldRetrieveRoleIfItDoesNOTExistInAccessControlButIsAvailableInRoleFetcher()
-    {
-        $this->roleFetcher->method('getRole')->willReturn(Option::fromValue(new Role('common', 'description')));
-        $role = $this->sut->getOptionRole('common')->get();
-        $this->assertEquals($role->name, 'common');
-        $this->assertInstanceOf(Role::class, $role);
-    }
-
-    public function testShouldReturnNothingWhenUnavailableRole()
-    {
-        $this->roleFetcher->method('getRole')->willReturn(Option::fromValue(null));
-        $role = $this->sut->getOptionRole('common');
-        $this->assertTrue($role->isEmpty());
-    }
-    public function testShouldRetrieveResourceIfItExistsInAccessControl()
-    {
-        $this->accessControl->createResourceType('video', 'description');
-        $resource = $this->sut->getOptionResource()->get();
-        $this->assertEquals($resource->name, 'video');
-        $this->assertInstanceOf(ResourceType::class, $resource);
-    }
-
-    public function testShouldRetrieveResourceIfItDoesNOTExistInAccessControlButIsAvailableInRoleFetcher()
-    {
-        $this->resourceFetcher->method('getResource')->willReturn(
-            Option::fromValue(new ResourceType('video', 'description'))
-        );
-        $resource = $this->sut->getOptionResource()->get();
-        $this->assertEquals($resource->name, 'video');
-        $this->assertInstanceOf(ResourceType::class, $resource);
-    }
-
-    public function testShouldReturnNothingWhenUnavailableResource()
-    {
-        $this->resourceFetcher->method('getResource')->willReturn(Option::fromValue(null));
-        $resource = $this->sut->getOptionResource();
-        $this->assertTrue($resource->isEmpty());
     }
 
     public function testShouldReceivePredefinedPermissionIfItIsSet()
@@ -121,8 +61,6 @@ class RoleValidationMiddlewareTest extends TestCase
 
     public function testShouldThrowWhenNoneRoleAndResource()
     {
-        $this->roleFetcher->method('getRole')->willReturn(Option::fromValue(null));
-        $this->resourceFetcher->method('getResource')->willReturn(Option::fromValue(null));
         $this->expectException(HttpForbiddenAccessException::class);
 
         $this->sut->process($this->getRequest(), $this->forgeRequestHandler());
@@ -172,8 +110,6 @@ class RoleValidationMiddlewareTest extends TestCase
             $resource
         );
 
-        $this->roleFetcher->method('getRole')->willReturn(Option::fromValue($role));
-
         $this->expectException(HttpForbiddenAccessException::class);
 
         $this->sut->process($request, $this->forgeRequestHandler());
@@ -185,13 +121,13 @@ class RoleValidationMiddlewareTest extends TestCase
         $role = new Role('admin', 'description');
         $resource = new ResourceType('video', '');
 
-        $this->accessControl->appendResourceType($resource);
+
         $role->addPermissionToResourceType(
             Permission::makeWithPreferableName(ContextIntent::CREATE, $resource),
             $resource
         );
 
-        $this->roleFetcher->method('getRole')->willReturn(Option::fromValue($role));
+        $this->accessControl->appendRole($role);
 
         $request = $this->getRequest()->withMethod('POST');
 

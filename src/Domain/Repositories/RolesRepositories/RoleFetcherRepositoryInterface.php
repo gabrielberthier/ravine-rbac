@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RavineRbac\Domain\Repositories\RolesRepositories;
 
 use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\OptionalApi\Result;
 
 interface RoleFetcherRepositoryInterface
 {

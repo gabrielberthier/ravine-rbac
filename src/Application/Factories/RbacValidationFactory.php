@@ -1,8 +1,6 @@
 <?php
 namespace RavineRbac\Application\Factories;
 
-use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
-use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\Permission;
 use RavineRbac\Domain\Models\RBAC\ResourceType;
@@ -16,13 +14,10 @@ class RbacValidationFactory
     public function __construct(private ContainerInterface $containerInterface)
     {
         $accessControl = $containerInterface->get(AccessControl::class);
-        $roleFetcherInterface = $containerInterface->get(RoleFetcherInterface::class);
-        $resourceFetcherInterface = $containerInterface->get(ResourceFetcherInterface::class);
 
         $this->middleware = new RoleValidationMiddleware(
             $accessControl,
-            $roleFetcherInterface,
-            $resourceFetcherInterface
+            ""
         );
     }
 

@@ -8,6 +8,7 @@ use RavineRbac\Domain\Contracts\AccessControlInterface;
 use RavineRbac\Domain\Events\EventDispatcher;
 use RavineRbac\Domain\Events\Events\{OnRoleRevokedEvent, OnRoleCreateEvent, OnRoleAppendedEvent};
 use RavineRbac\Domain\Events\Events\OnPermissionAdded;
+use RavineRbac\Domain\Events\Events\OnRbacStart;
 use RavineRbac\Domain\Events\Events\OnResourceCreateEvent;
 use RavineRbac\Domain\Events\Events\OnRoleExtendedEvent;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
@@ -25,11 +26,17 @@ final class ProxyAccessControl implements AccessControlInterface
         private ?RoleFetcherRepositoryInterface $roleFetcherRepositoryInterface = null,
         private ?ResourceFetcherRepositoryInterface $resourceFetcherRepositoryInterface = null
     ) {
+        $this->eventDispatcher->dispatch(new OnRbacStart($accessControl));
     }
 
     public function setRoleFetcherRepository(RoleFetcherRepositoryInterface $roleFetcherRepositoryInterface)
     {
         $this->roleFetcherRepositoryInterface = $roleFetcherRepositoryInterface;
+    }
+
+    public function setResourceFetcherRepository(ResourceFetcherRepositoryInterface $resourceFetcherRepositoryInterface)
+    {
+        $this->resourceFetcherRepositoryInterface = $resourceFetcherRepositoryInterface;
     }
 
     public function addPermissionToRole(
@@ -126,7 +133,7 @@ final class ProxyAccessControl implements AccessControlInterface
     {
         return $this->accessControl->getRole($role)->orElse(
             new LazyOption(
-                fn() => $this->roleFallback($role->name),
+                fn() => $this->roleFallback($this->extractName($role)),
             )
         );
     }
@@ -225,9 +232,9 @@ final class ProxyAccessControl implements AccessControlInterface
     /** @return Option<ResourceType> */
     public function getResourceType(ResourceType|string $resource): Option
     {
-        return $this->accessControl->getRole($resource)->orElse(
+        return $this->accessControl->getResourceType($resource)->orElse(
             new LazyOption(
-                fn() => $this->resourceFallback($resource->name),
+                fn() => $this->resourceFallback($this->extractName($resource)),
             )
         );
     }
@@ -313,5 +320,10 @@ final class ProxyAccessControl implements AccessControlInterface
     public function jsonSerialize(): mixed
     {
         return $this->accessControl->jsonSerialize();
+    }
+
+    private function extractName(ResourceType|Role|Permission|string $subject): string
+    {
+        return is_string($subject) ? $subject : $subject->name;
     }
 }
