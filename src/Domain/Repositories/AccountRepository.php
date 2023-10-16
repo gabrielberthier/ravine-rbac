@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace RavineRbac\Domain\Repositories;
 
-use RavineRbac\Domain\Dto\AccountDto;
 use RavineRbac\Domain\Models\Account;
-use RavineRbac\Domain\Models\Enums\AuthTypes;
+use RavineRbac\Domain\OptionalApi\Result;
 
 interface AccountRepository
 {
@@ -16,5 +15,6 @@ interface AccountRepository
 
     public function findByUUID(string $uuid): ?Account;
 
-    public function insert(AccountDto $account): Account;
+    /** @return Result<bool, \Exception> */
+    public function insert(Account $account): Result;
 }

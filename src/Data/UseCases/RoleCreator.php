@@ -20,8 +20,12 @@ class RoleCreator
         string $roleName,
         string $description = ""
     ) {
-        $role = $this->accessControl->forgeRole($roleName, $description)->getRole($roleName);
-
-        return $this->roleStorer->store($role->get());
+        $this
+            ->accessControl
+            ->forgeRole($roleName, $description)
+            ->getRole($roleName)
+            ->map(
+                fn(Role $role) => $this->roleStorer->store($role)
+            )->get();
     }
 }

@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace RavineRbac\Domain\Repositories\RolesRepositories;
 
 
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Domain\OptionalApi\Result;
 
-interface RoleSingleInsertRepositoryInterface 
+interface ResourceSingleInsertRepositoryInterface 
 {
     /**
      * This function MUST store a single role as it is defined containing resources and permissions associated to it.
      * 
-     * @param Role $role
+     * @param ResourceType $resourceType
      * 
      * @return Result<bool,\Exception>
      */
-    function insertRole(Role $role): Result;
+    function insertResource(ResourceType $resourceType): Result;
 }

@@ -13,7 +13,7 @@ interface RoleBulkInsertRepositoryInterface
      * 
      * @param \RavineRbac\Domain\Models\RBAC\Role[] $role
      * 
-     * @return Result<bool>
+     * @return Result<bool,\Exception>
      */
     function bulkInsertRoles(array $role): Result;
 }
