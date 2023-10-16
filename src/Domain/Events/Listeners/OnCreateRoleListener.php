@@ -26,9 +26,7 @@ class OnCreateRoleListener implements ListenerInterface
     }
 
     public function execute(OnRoleCreateEvent $subject): void
-    {
-        $role = $subject->role;
-
-        $this->roleStorage->storeRole($role);
+    { 
+        $this->roleStorage->storeRole($subject->role);
     }
 }

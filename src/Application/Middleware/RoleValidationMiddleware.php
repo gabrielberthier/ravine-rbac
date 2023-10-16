@@ -4,16 +4,11 @@ namespace RavineRbac\Application\Middleware;
 
 
 use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
-use RavineRbac\Data\Protocols\Rbac\ResourceFetcherInterface;
-use RavineRbac\Data\Protocols\Rbac\RoleFetcherInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
 use RavineRbac\Domain\Models\RBAC\ResourceType;
-use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Domain\Models\Token;
-use PhpOption\LazyOption;
-use PhpOption\Option;
 use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Closure;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -25,12 +20,9 @@ class RoleValidationMiddleware implements Middleware
 {
     private ?RbacFallbackInterface $bypassFallback = null;
     private ?Permission $predefinedPermission = null;
-    private ResourceType|string $resource;
-
     public function __construct(
-        public readonly AccessControl $accessControl,
-        public readonly RoleFetcherInterface $roleFetcher,
-        public readonly ResourceFetcherInterface $resourceFetcher
+        private readonly AccessControl $accessControl,
+        private readonly ResourceType|string $resource
     ) {
     }
     public function process(Request $request, RequestHandler $handler): Response
@@ -41,8 +33,8 @@ class RoleValidationMiddleware implements Middleware
             $token = new Token(...$rawToken["data"]);
 
             $permission = $this->getAccessGrantRequest($request);
-            $maybeRole = $this->getOptionRole($token->role);
-            $maybeResource = $this->getOptionResource();
+            $maybeRole = $this->accessControl->getRole($token->role);
+            $maybeResource = $this->accessControl->getResourceType($this->resource);
 
             if ($maybeRole->isDefined() && $maybeResource->isDefined()) {
                 $role = $maybeRole->get();
@@ -93,43 +85,6 @@ class RoleValidationMiddleware implements Middleware
     }
 
     /**
-     * Will fetch a role from access control instance, and case it does not find it
-     * will use a fallback method to fetch from another mean using an implementation
-     * of RoleFetcherInterface. 
-     * 
-     * @return Option<Role>
-     */
-    public function getOptionRole(string $role): Option
-    {
-        return $this->accessControl
-            ->getRole($role)
-            ->orElse(
-                new LazyOption(
-                    fn(): Option => $this->roleFallback($role)
-                )
-            );
-    }
-
-    /**
-     * Will fetch a resource from the access control instance, 
-     * and in case it does not find it
-     * will use a fallback method to fetch from another mean using an implementation
-     * of ResourceFetcherInterface. 
-     * 
-     * @return Option<ResourceType>
-     */
-    public function getOptionResource(): Option
-    {
-        return $this->accessControl
-            ->getResourceType($this->resource)
-            ->orElse(
-                new LazyOption(
-                    $this->resourceFallback(...)
-                )
-            );
-    }
-
-    /**
      * Creates a Permission object based on request method.
      */
     private function makeGrantBasedOnRequestMethod(
@@ -146,36 +101,6 @@ class RoleValidationMiddleware implements Middleware
             $contextIntent,
             $this->resource
         );
-    }
-
-    /** @return Option<Role> */
-    private function roleFallback(string $role): Option
-    {
-        $returned = $this->roleFetcher
-            ->getRole($role)
-            ->map(
-                function (Role $role): Role {
-                    $this->accessControl->appendRole($role);
-
-                    return $role;
-                }
-            );
-
-        return $returned;
-    }
-
-    /** @return Option<ResourceType> */
-    private function resourceFallback(): Option
-    {
-        return $this->resourceFetcher
-            ->getResource($this->resource)
-            ->map(
-                function (ResourceType $resource): ResourceType {
-                    $this->accessControl->appendResourceType($resource);
-
-                    return $resource;
-                }
-            );
     }
 
     private function getFallback(): ?Closure

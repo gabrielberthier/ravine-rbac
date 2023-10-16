@@ -24,5 +24,5 @@ interface RoleFetcherRepositoryInterface
      * 
      * @return \RavineRbac\Domain\OptionalApi\Result<Role[],\Exception> 
      */
-    function fetchAll(mixed $identifier): Result;
+    function fetchAll(): Result;
 }

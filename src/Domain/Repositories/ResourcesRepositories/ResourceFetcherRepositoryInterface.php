@@ -25,5 +25,5 @@ interface ResourceFetcherRepositoryInterface
      * 
      * @return Result<ResourceType[],\Exception> 
      */
-    function fetchAll(mixed $identifier): Result;
+    function fetchAll(): Result;
 }

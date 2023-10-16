@@ -4,18 +4,32 @@ namespace RavineRbac\Domain\Models\RBAC;
 use PhpOption\None;
 use PhpOption\Option;
 use PhpOption\Some;
+use RavineRbac\Domain\Contracts\AccessControlInterface;
+use RavineRbac\Domain\Events\EventDispatcher;
 
 /**
  * AccessControl is a Facade to interact with Roles available in the system.
  * It will handle most authorization functions and insertions.
  */
-class AccessControl implements \JsonSerializable
+class AccessControl implements AccessControlInterface
 {
     /** @var array<string, Role> */
-    public array $roles = [];
+    private array $roles;
 
     /** @var array<string, ResourceType> */
-    public array $resources = [];
+    private array $resources;
+
+    /**
+     * @param array<string, Role> $roles
+     * @param array<string, ResourceType> $resources
+     */
+    public function __construct(
+        array $roles = [],
+        array $resources = []
+    ) {
+        $this->roles = $roles;
+        $this->resources = $resources;
+    }
 
     public function addPermissionToRole(
         Role|string $role,
@@ -29,6 +43,7 @@ class AccessControl implements \JsonSerializable
 
         $roleRef = $this->extractName($role);
         $resourceRef = $this->extractName($resource);
+        
         $this->roles[$roleRef]->addPermissionToResourceType(
             $permission,
             $this->resources[$resourceRef]
@@ -128,7 +143,8 @@ class AccessControl implements \JsonSerializable
             : None::create();
     }
 
-    public function getRoles()
+    /** @return Role[] */
+    public function getRoles(): array
     {
         return array_values($this->roles);
     }
@@ -138,7 +154,7 @@ class AccessControl implements \JsonSerializable
         $this->roles[$this->extractName($role)]->inactivate();
     }
 
-    public function extendRole(Role|string $targetRole, Role|string ...$roles)
+    public function extendRole(Role|string $targetRole, Role|string ...$roles): void
     {
         $this->getRole($targetRole)->map(function (Role $role) use ($roles) {
             foreach ($roles as $includer) {

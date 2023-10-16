@@ -8,21 +8,11 @@ use Psr\EventDispatcher\StoppableEventInterface;
 
 class EventDispatcher implements EventDispatcherInterface
 {
-    private ListenerProviderInterface $listenerProvider;
 
-    /**
-     * EventDispatcher constructor.
-     * @param ListenerProviderInterface $listenerProvider
-     */
-    public function __construct(ListenerProviderInterface $listenerProvider)
+    public function __construct(private ListenerProviderInterface $listenerProvider)
     {
-        $this->listenerProvider = $listenerProvider;
     }
 
-    /**
-     * @param object $event
-     * @return object
-     */
     public function dispatch(object $event): object
     {
 
@@ -36,6 +26,7 @@ class EventDispatcher implements EventDispatcherInterface
                 $listener($event);
             }
         }
+
         return $event;
     }
 }
