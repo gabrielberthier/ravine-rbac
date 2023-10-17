@@ -6,15 +6,12 @@ use RavineRbac\Domain\Models\RBAC\Permission;
 use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
 use RavineRbac\Application\Protocols\RbacFallbackInterface;
-use Psr\Container\ContainerInterface;
 
 class RbacValidationFactory
 {
     private RoleValidationMiddleware $middleware;
-    public function __construct(private ContainerInterface $containerInterface)
+    public function __construct(private AccessControl $accessControl)
     {
-        $accessControl = $containerInterface->get(AccessControl::class);
-
         $this->middleware = new RoleValidationMiddleware(
             $accessControl,
             ""

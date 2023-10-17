@@ -9,6 +9,7 @@ use RavineRbac\Domain\Events\EventDispatcher;
 use RavineRbac\Domain\Events\Events\{OnRoleRevokedEvent, OnRoleCreateEvent, OnRoleAppendedEvent};
 use RavineRbac\Domain\Events\Events\OnPermissionAdded;
 use RavineRbac\Domain\Events\Events\OnRbacStart;
+use RavineRbac\Domain\Events\Events\OnResourceAppendedEvent;
 use RavineRbac\Domain\Events\Events\OnResourceCreateEvent;
 use RavineRbac\Domain\Events\Events\OnRoleExtendedEvent;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
@@ -250,6 +251,9 @@ final class ProxyAccessControl implements AccessControlInterface
 
     public function appendResourceType(ResourceType $resource): self
     {
+        $this->accessControl->appendResourceType($resource);
+
+        $this->eventDispatcher->dispatch(new OnResourceAppendedEvent($resource));
 
         return $this;
     }

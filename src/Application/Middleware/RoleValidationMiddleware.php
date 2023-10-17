@@ -21,8 +21,8 @@ class RoleValidationMiddleware implements Middleware
     private ?RbacFallbackInterface $bypassFallback = null;
     private ?Permission $predefinedPermission = null;
     public function __construct(
-        private readonly AccessControl $accessControl,
-        private readonly ResourceType|string $resource
+        public readonly AccessControl $accessControl,
+        private ResourceType|string $resource = ""
     ) {
     }
     public function process(Request $request, RequestHandler $handler): Response

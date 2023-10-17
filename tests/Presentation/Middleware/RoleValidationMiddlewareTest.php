@@ -20,7 +20,6 @@ use Tests\TestCase;
 
 class RoleValidationMiddlewareTest extends TestCase
 {
-    private \Prophecy\Prophet $prophet;
     private RoleValidationMiddleware $sut;
     private AccessControl $accessControl;
 

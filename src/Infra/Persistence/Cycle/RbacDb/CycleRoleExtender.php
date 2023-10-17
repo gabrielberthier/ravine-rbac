@@ -32,6 +32,7 @@ final class CycleRoleExtender
                 ->ok()
                 ->map(fn($el) => $el ?? CycleRole::fromModel($target))
                 ->get();
+
             $cycleParentRole = $repository
                 ->getOneByName($parent->name)
                 ->ok()
