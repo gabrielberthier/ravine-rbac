@@ -293,7 +293,7 @@ class Ok extends Result
      */
     public function err(): Option
     {
-        return new None;
+        return None::create();
     }
 
     /**

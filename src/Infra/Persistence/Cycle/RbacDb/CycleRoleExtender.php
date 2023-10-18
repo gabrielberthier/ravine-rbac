@@ -2,13 +2,13 @@
 
 namespace RavineRbac\Infra\Persistence\Cycle\RbacDb;
 
-use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
 use RavineRbac\Domain\Models\RBAC\Role;
 use RavineRbac\Domain\OptionalApi\Result;
 use RavineRbac\Domain\OptionalApi\Result\Err;
 use RavineRbac\Domain\OptionalApi\Result\Ok;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
+use RavineRbac\Infra\Persistence\Cycle\Entities\CycleRole;
 
 final class CycleRoleExtender
 {

@@ -267,7 +267,7 @@ class Err extends Result
      */
     public function ok(): Option
     {
-        return new None;
+        return None::create();
     }
 
     /**

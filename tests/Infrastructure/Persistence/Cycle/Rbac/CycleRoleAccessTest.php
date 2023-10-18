@@ -2,11 +2,8 @@
 
 namespace Tests\Infrastructure\Persistence\Orm\Rbac;
 
-use Core\Data\Factories\CycleDatabaseManagerFactory;
-use Core\Data\Factories\CycleOrmFactory;
-use RavineRbac\Data\Entities\Cycle\Rbac\CyclePermission;
-use RavineRbac\Data\Entities\Cycle\Rbac\CycleResource;
-use RavineRbac\Data\Entities\Cycle\Rbac\CycleRole;
+
+
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
 use RavineRbac\Domain\Models\RBAC\ResourceType;
@@ -15,6 +12,13 @@ use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Group;
+use RavineRbac\Infra\Persistence\Cycle\Configure\Factories\Static\CycleDatabaseManagerFactory;
+use RavineRbac\Infra\Persistence\Cycle\Configure\Factories\Static\CycleOrmFactory;
+use RavineRbac\Infra\Persistence\Cycle\Entities\{
+    CycleRole,
+    CycleResource,
+    CyclePermission
+};
 use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleAccessCreator;
 use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleAccessRepository;
 use RavineRbac\Infra\Persistence\Cycle\RbacDb\CycleRoleExtender;
