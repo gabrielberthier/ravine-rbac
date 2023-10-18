@@ -15,6 +15,7 @@ use RavineRbac\Domain\Events\Events\OnRoleExtendedEvent;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use PhpOption\Option;
 use RavineRbac\Domain\Models\RBAC\{ResourceType, Role, Permission, ContextIntent};
+use RavineRbac\Domain\OptionalApi\Result;
 use RavineRbac\Domain\Repositories\RolesRepositories\RoleFetcherRepositoryInterface;
 use RavineRbac\Domain\Repositories\ResourcesRepositories\ResourceFetcherRepositoryInterface;
 
@@ -139,29 +140,6 @@ final class ProxyAccessControl implements AccessControlInterface
         );
     }
 
-    private function fetchRole(
-        RoleFetcherRepositoryInterface|null $roleFetcherRepositoryInterface,
-        string $roleName,
-        LoggerInterface $loggerInterface
-    ) {
-
-        if (is_null($roleFetcherRepositoryInterface)) {
-            return None::create();
-        }
-
-        $result = $roleFetcherRepositoryInterface->fetch($roleName);
-
-        if ($result->isErr()) {
-            $error = $result->unwrapErr();
-            $loggerInterface->error(
-                sprintf("An error occured: %s", $error->getMessage())
-            );
-        }
-
-        return $result->ok();
-
-    }
-
     /** @return Role[] */
     public function getRoles(): array
     {
@@ -171,17 +149,9 @@ final class ProxyAccessControl implements AccessControlInterface
             return $roles;
         }
 
-        if ($this->roleFetcherRepositoryInterface) {
-            $result = $this->roleFetcherRepositoryInterface->fetchAll();
-
-            if ($result->isOk()) {
-                return $result->unwrapOr([]);
-            }
-
-            $error = $result->unwrapErr();
-
-            $this->loggerInterface->error(
-                sprintf("An error occured: %s", $error->getMessage())
+        if (!is_null($this->roleFetcherRepositoryInterface)) {
+            return $this->coerceResultArray(
+                $this->roleFetcherRepositoryInterface->fetchAll()
             );
         }
 
@@ -213,17 +183,9 @@ final class ProxyAccessControl implements AccessControlInterface
             return $resourceTypes;
         }
 
-        if ($this->resourceFetcherRepositoryInterface) {
-            $result = $this->resourceFetcherRepositoryInterface->fetchAll();
-
-            if ($result->isOk()) {
-                return $result->unwrapOr([]);
-            }
-
-            $error = $result->unwrapErr();
-
-            $this->loggerInterface->error(
-                sprintf("An error occured: %s", $error->getMessage())
+        if (!is_null($this->resourceFetcherRepositoryInterface)) {
+            return $this->coerceResultArray(
+                $this->resourceFetcherRepositoryInterface->fetchAll()
             );
         }
 
@@ -261,6 +223,19 @@ final class ProxyAccessControl implements AccessControlInterface
     public function toJson(): string
     {
         return $this->accessControl->toJson();
+    }
+
+    private function coerceResultArray(Result $result): array
+    {
+        $logger = $this->loggerInterface;
+        
+        return $result->unwrapOrElse(
+            function (\Exception $exception) use ($logger) {
+                $logger->error(sprintf("An error occured: %s", $exception->getMessage()));
+
+                return [];
+            }
+        );
     }
 
     /** @return Option<Role> */

@@ -96,6 +96,7 @@ final class CycleRoleAccessTest extends TestCase
             ->getRoleWithPermissions($roleObject, $resource)
             ->unwrap();
 
+
         $this->assertEquals($retrievedCycleRole->getName(), $roleObject->name);
         $this->assertCount(1, $retrievedCycleRole->permissions->toArray());
     }

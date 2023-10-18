@@ -19,6 +19,7 @@ class EventDispatcher implements EventDispatcherInterface
         if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
             return $event;
         }
+        
         foreach ($this->listenerProvider->getListenersForEvent($event) as $listener) {
             if ($listener instanceof ListenerInterface) {
                 $listener->execute($event);

@@ -28,7 +28,7 @@ final class CycleDatabaseManagerFactory
                         connection: new Config\SQLite\MemoryConnectionConfig(),
                         queryCache: true
                     ),
-                    "production" => ConnectionFactory::getConnection(),
+                    "production" => CycleDriverConfigFactory::create(),
                 ],
             ])
         );

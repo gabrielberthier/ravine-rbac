@@ -1,7 +1,7 @@
 <?php
 namespace RavineRbac\Application\Factories;
 
-use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Contracts\AccessControlInterface;
 use RavineRbac\Domain\Models\RBAC\Permission;
 use RavineRbac\Domain\Models\RBAC\ResourceType;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
@@ -10,15 +10,19 @@ use RavineRbac\Application\Protocols\RbacFallbackInterface;
 class RbacValidationFactory
 {
     private RoleValidationMiddleware $middleware;
-    public function __construct(private AccessControl $accessControl)
+    public function __construct(private AccessControlInterface $accessControl)
     {
         $this->middleware = new RoleValidationMiddleware(
-            $accessControl,
-            ""
+            $accessControl
         );
     }
 
     public function __invoke(ResourceType|string $target): RoleValidationMiddleware
+    {
+        return $this->create($target);
+    }
+
+    public function create(ResourceType|string $target): RoleValidationMiddleware
     {
         return $this->middleware->setResourceTarget($target);
     }

@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Data\Factories;
 
-use Cycle\Database\Config\DriverConfig;
-use Core\Data\Cycle\Facade\ConnectorFacade;
-use function Core\functions\inTesting;
 use function Core\functions\mode;
 
 final class ConnectionFactory
@@ -23,6 +20,7 @@ final class ConnectionFactory
                     $connectionArray['url'] = $_ENV['DATABASE_URL'];
                 } else {
                     $dbParams = ['DRIVER', 'HOST', 'DBNAME', 'PORT', 'USER', 'PASSWORD', 'CHARSET'];
+
                     foreach ($dbParams as $param) {
                         $connectionArray[$param] = $_ENV[$param];
                     }
@@ -33,34 +31,12 @@ final class ConnectionFactory
                         'driver' => 'pdo_sqlite',
                         'memory' => 'true',
                     ],
+                    
                     'PRODUCTION', 'DEV' => $connectionArray,
+
                     default => throw new \Exception($exceptionMessage, 500)
                 };
             }
         ];
-    }
-
-    public static function getConnection(
-        array $connectionOptions = [],
-        array $driverOptions = []
-    ): ?DriverConfig {
-        if (!inTesting()) {
-            $connectorFacade = new ConnectorFacade(
-                connection: self::getConnectionSettings(),
-                connectionOptions: $connectionOptions
-            );
-
-            // Configure connector as you wish
-            $connectorFacade
-                ->configureFactory()
-                ->withQueryCache(true)
-                ->withSchema("public");
-
-            return $connectorFacade->produceDriverConnection(
-                driverOptions: $driverOptions
-            );
-        }
-
-        return null;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace RavineRbac\Infra\Persistence\Cycle\RbacDb;
 
 use RavineRbac\Data\Entities\Cycle\Rbac\CyclePermission;

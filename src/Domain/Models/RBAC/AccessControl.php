@@ -5,7 +5,6 @@ use PhpOption\None;
 use PhpOption\Option;
 use PhpOption\Some;
 use RavineRbac\Domain\Contracts\AccessControlInterface;
-use RavineRbac\Domain\Events\EventDispatcher;
 
 /**
  * AccessControl is a Facade to interact with Roles available in the system.

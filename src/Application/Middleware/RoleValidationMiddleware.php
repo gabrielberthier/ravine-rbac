@@ -4,6 +4,7 @@ namespace RavineRbac\Application\Middleware;
 
 
 use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
+use RavineRbac\Domain\Contracts\AccessControlInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Permission;
@@ -21,7 +22,7 @@ class RoleValidationMiddleware implements Middleware
     private ?RbacFallbackInterface $bypassFallback = null;
     private ?Permission $predefinedPermission = null;
     public function __construct(
-        public readonly AccessControl $accessControl,
+        public readonly AccessControlInterface $accessControl,
         private ResourceType|string $resource = ""
     ) {
     }
