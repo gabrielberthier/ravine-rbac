@@ -1,4 +1,37 @@
-# RBAC System
+# RAVINE RBAC
+
+A PHP RBAC implementation using PSR-15, PSR-7 and preconfigured examples using ORMs for running either in long or short-lived processes.
+
+## How does this package work?
+
+In example folder you should have a glimpse of hou this library should be used, but to summarize, you should append an instance of the RBAC Validation Middleware to your PSR-15 stack and attach an array in the attributes of your request object in the following format:
+
+```php
+
+$values = [
+    'data' => [
+        'email' => 'mail', // optional (future work using accounts with many roles)
+        'username' => 'username', // optional (future work using accounts with many roles)
+        'role' => 'admin' // -> MANDATORY 
+    ]
+]
+
+```
+
+And use the Middleware as:
+
+```php
+
+$accessControl = new AccessControl();
+$factory = new RbacValidationFactory($accessControl);
+
+$factory('resource name')->process($request, $handler);
+
+```
+
+Than, the middleware will map the HTTP method to a desired operation (READ, UPDATE, DELETE). You can customize that as well.
+
+This package focuses on being REALLY extensible, which means that you could potentially use it in many other scenarios than above or the ones in `complex-example` directory. You could use the predefined events to store in your database your designated roles (you MUST use ProxyAccessControl for that), implement your own repository layer, extend roles based on your will, and so on. I intentionally provided a repository layer in order to achieve disk storage using Cycle ORM which is more than enough to give you an idea of how to personalize your own repositories layer.
 
 ## What is RBAC
 
@@ -21,6 +54,7 @@ All RBAC models must adhere to the following rules:
 ## The RBAC Model
 
 There are three types of access control in the RBAC standard: core, hierarchical, and restrictive.
+I chose to focus on the first two.
 
 ## Domain
 
