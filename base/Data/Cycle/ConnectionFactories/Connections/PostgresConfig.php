@@ -33,8 +33,10 @@ class PostgresConfig implements ConnectionConfigInterface
     {
         $options ??= [];
 
+        $dsn ??= "pgsql:host=db;port=5432;dbname=backofficeapi;user=postgres;password=POSTGRES_PASSWORD";
+
         $conn = new Config\Postgres\DsnConnectionConfig(
-            "pgsql:host=db;port=5432;dbname=backofficeapi;user=postgres;password=POSTGRES_PASSWORD",
+            $dsn,
             $user,
             $password,
             $options
