@@ -16,5 +16,11 @@ interface ConnectionConfigInterface
         string|null $password,
         ?array $options
     ): PDOConnectionConfig;
-    function dsnConnection(\Stringable|string $dsn, ?string $user, ?string $password, ?array $options): PDOConnectionConfig;
+
+    function dsnConnection(
+        \Stringable|string $dsn,
+        ?string $user,
+        ?string $password,
+        ?array $options
+    ): PDOConnectionConfig;
 }

@@ -6,7 +6,7 @@ namespace Core\Data\Factories;
 
 use Cycle\Database\Config\DriverConfig;
 use Core\Data\Cycle\Facade\ConnectorFacade;
-use function Core\functions\inTesting;
+use function RavineRbac\functions\inTesting;
 
 class CycleDriverConfigFactory
 {

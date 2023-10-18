@@ -11,10 +11,9 @@
     ],
     "autoload": {
         "psr-4": {
-            "RavineRbac\\": "src/",
-            "Core\\": "base/"
+            "RavineRbac\\": "src/"
         },
-        "files": ["base/functions/helpers.php"]
+        "files": ["src/functions/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {

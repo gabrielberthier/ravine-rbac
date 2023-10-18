@@ -15,6 +15,5 @@ final readonly class ConnectionDefinitions
         public ?string $url = null,
         public array $options = []
     ) {
-
     }
 }

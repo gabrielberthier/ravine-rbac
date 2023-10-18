@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Core\Data\Factories;
 
-use function Core\functions\mode;
+use function RavineRbac\functions\mode;
 
 final class ConnectionFactory
 {
