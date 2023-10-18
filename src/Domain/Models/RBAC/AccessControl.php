@@ -185,7 +185,7 @@ class AccessControl implements AccessControlInterface
         return $exists ? new Some($this->resources[$nameUtility]) : None::create();
     }
 
-    public function createResourceType(string $name, string $description): ResourceType
+    public function createResourceType(string $name, string $description):self
     {
         $resource = new ResourceType($name, $description);
 
@@ -193,7 +193,7 @@ class AccessControl implements AccessControlInterface
             $this->resources[$name] = $resource;
         }
 
-        return $resource;
+        return $this;
     }
 
     public function appendResourceType(ResourceType $resource): self

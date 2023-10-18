@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use RavineRbac\Domain\Contracts\AccessControlInterface;
 use RavineRbac\Domain\Events\EventDispatcher;
 use RavineRbac\Domain\Events\Events\{OnRoleRevokedEvent, OnRoleCreateEvent, OnRoleAppendedEvent};
+use RavineRbac\Domain\Events\Events\OnAccessAttempt;
 use RavineRbac\Domain\Events\Events\OnPermissionAdded;
 use RavineRbac\Domain\Events\Events\OnRbacStart;
 use RavineRbac\Domain\Events\Events\OnResourceAppendedEvent;
@@ -100,6 +101,8 @@ final class ProxyAccessControl implements AccessControlInterface
         ContextIntent|Permission $permission,
         ?callable $fallback = null
     ): bool {
+        $this->eventDispatcher->dispatch(new OnAccessAttempt($role, $resource, $permission));
+
         return $this->accessControl->tryAccess($role, $resource, $permission, $fallback);
     }
 
@@ -202,13 +205,15 @@ final class ProxyAccessControl implements AccessControlInterface
         );
     }
 
-    public function createResourceType(string $name, string $description): ResourceType
+    public function createResourceType(string $name, string $description): self
     {
-        $resourceType = $this->accessControl->createResourceType($name, $description);
+        $this->accessControl->createResourceType($name, $description);
+        
+        $resourceType = $this->getResourceType($name)->get();
 
         $this->eventDispatcher->dispatch(new OnResourceCreateEvent($resourceType));
 
-        return $resourceType;
+        return $this;
     }
 
     public function appendResourceType(ResourceType $resource): self

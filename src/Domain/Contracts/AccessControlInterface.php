@@ -61,7 +61,7 @@ interface AccessControlInterface extends \JsonSerializable
     /** @return Option<ResourceType> */
     public function getResourceType(ResourceType|string $resource): Option;
 
-    public function createResourceType(string $name, string $description): ResourceType;
+    public function createResourceType(string $name, string $description): self;
 
     public function appendResourceType(ResourceType $resource): self;
 

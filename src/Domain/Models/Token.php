@@ -10,11 +10,11 @@ use Ramsey\Uuid\UuidInterface;
 readonly class Token implements JsonSerializable
 {
     public function __construct(
-        public string $email,
-        public string $username,
         public string $role,
-        public ?string $authType,
-        public ?UuidInterface $uuid,
+        public ?string $email = null,
+        public ?string $username = null,
+        public ?string $authType = null,
+        public ?UuidInterface $uuid = null,
     ) {
     }
 
