@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Core\Data\Factories;
+namespace Core\Data\StaticFactories;
 
-
-use Core\Data\Factories\ConnectionFactory;
 use Cycle\Database\Config;
 use Cycle\Database\DatabaseManager;
 use Cycle\Database\Config\DatabaseConfig;

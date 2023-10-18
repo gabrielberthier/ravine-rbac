@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\Data\Factories;
+namespace Core\Data\StaticFactories;
 
 use Cycle\ORM;
 use Cycle\Database\DatabaseManager;
