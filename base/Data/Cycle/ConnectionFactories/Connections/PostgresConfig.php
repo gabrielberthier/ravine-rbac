@@ -42,8 +42,6 @@ class PostgresConfig implements ConnectionConfigInterface
             $options
         );
 
-
-
         return $conn;
     }
 }
