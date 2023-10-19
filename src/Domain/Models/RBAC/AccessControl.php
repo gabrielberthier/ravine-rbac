@@ -88,7 +88,7 @@ class AccessControl implements AccessControlInterface
                             $resource,
                             $permission
                         )
-                    )->get()
+                    )->getOrElse(false)
             )
             ->getOrElse(false);
 

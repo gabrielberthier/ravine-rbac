@@ -103,7 +103,14 @@ final class ProxyAccessControl implements AccessControlInterface
     ): bool {
         $this->eventDispatcher->dispatch(new OnAccessAttempt($role, $resource, $permission));
 
-        return $this->accessControl->tryAccess($role, $resource, $permission, $fallback);
+        $role = $this->getRole($role);
+        $resource = $this->getResourceType($resource);
+
+        if ($role->isDefined() && $resource->isDefined()) {
+            return $this->accessControl->tryAccess($role->get(), $resource->get(), $permission, $fallback);
+        }
+
+        return false;
     }
 
     public function appendRole(Role $role): self
@@ -208,7 +215,7 @@ final class ProxyAccessControl implements AccessControlInterface
     public function createResourceType(string $name, string $description): self
     {
         $this->accessControl->createResourceType($name, $description);
-        
+
         $resourceType = $this->getResourceType($name)->get();
 
         $this->eventDispatcher->dispatch(new OnResourceCreateEvent($resourceType));
@@ -233,7 +240,7 @@ final class ProxyAccessControl implements AccessControlInterface
     private function coerceResultArray(Result $result): array
     {
         $logger = $this->loggerInterface;
-        
+
         return $result->unwrapOrElse(
             function (\Exception $exception) use ($logger) {
                 $logger->error(sprintf("An error occured: %s", $exception->getMessage()));
@@ -255,12 +262,7 @@ final class ProxyAccessControl implements AccessControlInterface
         $result = $roleFetcherRepositoryInterface->fetch($role);
 
         if ($result->isErr()) {
-            $error = $result->unwrapErr();
-            $this->loggerInterface->error(
-                sprintf("An error occured: %s", $error->getMessage())
-            );
-
-            return None::create();
+            return $this->onResultError($result);
         }
 
         return $result->ok()->map(
@@ -284,12 +286,7 @@ final class ProxyAccessControl implements AccessControlInterface
         $result = $resourceFetcherRepositoryInterface->fetch($resourceName);
 
         if ($result->isErr()) {
-            $error = $result->unwrapErr();
-            $this->loggerInterface->error(
-                sprintf("An error occured: %s", $error->getMessage())
-            );
-
-            return None::create();
+            return $this->onResultError($result);
         }
 
         return $result->ok()->map(
@@ -299,6 +296,16 @@ final class ProxyAccessControl implements AccessControlInterface
                 return $resource;
             }
         );
+    }
+
+    private function onResultError(Result $result): Option
+    {
+        $error = $result->unwrapErr();
+        $this->loggerInterface->error(
+            sprintf("An error occured: %s", $error->getMessage())
+        );
+
+        return None::create();
     }
 
     public function jsonSerialize(): mixed

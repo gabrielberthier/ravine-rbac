@@ -32,27 +32,22 @@ class RoleValidationMiddleware implements Middleware
         $token = $this->getTokenInstance($request);
         if ($token) {
             $permission = $this->getAccessGrantRequest($request);
-            $maybeRole = $this->accessControl->getRole($token->role);
-            $maybeResource = $this->accessControl->getResourceType($this->resource);
 
-            if ($maybeRole->isDefined() && $maybeResource->isDefined()) {
-                $role = $maybeRole->get();
-                $resource = $maybeResource->get();
+            $canAccess = $this->accessControl->tryAccess(
+                $token->role,
+                $this->resource,
+                $permission,
+                $this->getFallback()
+            );
 
-                $canAccess = $this->accessControl->tryAccess(
-                    $role,
-                    $resource,
-                    $permission,
-                    $this->getFallback()
-                );
-
-                if ($canAccess) {
-                    return $handler->handle($request);
-                }
+            if ($canAccess) {
+                return $handler->handle($request);
             }
+            
+            throw new HttpForbiddenAccessException();
         }
 
-        throw new HttpForbiddenAccessException();
+        throw new \RuntimeException("A valid token could no be found in attributes");
     }
 
     private function getTokenInstance(Request $request): ?Token
