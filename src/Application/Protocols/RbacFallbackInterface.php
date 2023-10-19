@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RavineRbac\Application\Protocols;
 
-use RavineRbac\Domain\Models\RBAC\{Role, ResourceType, ContextIntent, Permission};
+use RavineRbac\Domain\Models\{Role, ResourceType, ContextIntent, Permission};
 
 interface RbacFallbackInterface
 {

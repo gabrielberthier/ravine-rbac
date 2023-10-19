@@ -6,7 +6,7 @@ namespace RavineRbac\Infra\Persistence\Cycle\Entities;
 
 use RavineRbac\Infra\Persistence\Cycle\Entities\Traits\TimestampsTrait;
 use RavineRbac\Infra\Persistence\Cycle\Entities\Traits\UuidTrait;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
+use RavineRbac\Domain\Models\ResourceType;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\HasMany;
@@ -132,6 +132,6 @@ class CycleResource
      */
     public function removePermission(CyclePermission $permission): void
     {
-        $this->permissions = $this->permissions->filter(static fn(CyclePermission $p) => $p !== $post);
+        $this->permissions = $this->permissions->filter(static fn(CyclePermission $p) => $p !== $permission);
     }
 }

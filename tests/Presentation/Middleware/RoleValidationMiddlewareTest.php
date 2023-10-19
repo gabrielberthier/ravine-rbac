@@ -6,11 +6,11 @@ namespace Tests\Presentation\Middleware;
 
 use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
-use RavineRbac\Domain\Models\RBAC\AccessControl;
-use RavineRbac\Domain\Models\RBAC\ContextIntent;
-use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\AccessControl;
+use RavineRbac\Domain\Models\ContextIntent;
+use RavineRbac\Domain\Models\Permission;
+use RavineRbac\Domain\Models\ResourceType;
+use RavineRbac\Domain\Models\Role;
 use RavineRbac\Application\Protocols\RbacFallbackInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -31,7 +31,6 @@ class RoleValidationMiddlewareTest extends TestCase
             $this->accessControl,
             resource: "video"
         );
-
     }
 
     public function testShouldReceivePredefinedPermissionIfItIsSet()

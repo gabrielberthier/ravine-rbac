@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace RavineRbac\Domain\Repositories;
 
-use RavineRbac\Domain\Models\RBAC\ResourceType;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\ResourceType;
+use RavineRbac\Domain\Models\Role;
 use RavineRbac\Domain\OptionalApi\Result;
 
 interface PermissionAssignerRepository 

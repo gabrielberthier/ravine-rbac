@@ -6,7 +6,7 @@ namespace RavineRbac\Infra\Persistence\Cycle\Entities;
 
 use RavineRbac\Infra\Persistence\Cycle\Entities\Traits\TimestampsTrait;
 use RavineRbac\Infra\Persistence\Cycle\Entities\Traits\UuidTrait;
-use RavineRbac\Domain\Models\RBAC\Permission;
+use RavineRbac\Domain\Models\Permission;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\BelongsTo;

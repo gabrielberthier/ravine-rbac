@@ -5,9 +5,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
-use RavineRbac\Domain\Models\RBAC\AccessControl;
-use RavineRbac\Domain\Models\RBAC\ContextIntent;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\AccessControl;
+use RavineRbac\Domain\Models\ContextIntent;
+use RavineRbac\Domain\Models\Role;
 use Psr\Http\Server\MiddlewareInterface;
 use HttpSoft\ServerRequest\ServerRequestCreator;
 

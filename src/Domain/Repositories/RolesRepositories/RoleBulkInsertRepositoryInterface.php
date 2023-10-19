@@ -11,7 +11,7 @@ interface RoleBulkInsertRepositoryInterface
     /**
      * This function MUST store roles as they are defined containing resources and permissions associated to them.
      * 
-     * @param \RavineRbac\Domain\Models\RBAC\Role[] $role
+     * @param \RavineRbac\Domain\Models\Role[] $role
      * 
      * @return Result<bool,\Exception>
      */

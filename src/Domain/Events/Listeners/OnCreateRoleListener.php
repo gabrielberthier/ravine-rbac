@@ -4,7 +4,7 @@ namespace RavineRbac\Listener;
 
 use RavineRbac\Domain\Events\Events\OnRoleCreateEvent;
 use RavineRbac\Domain\Events\ListenerInterface;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\Role;
 use Psr\Log\LoggerInterface;
 
 

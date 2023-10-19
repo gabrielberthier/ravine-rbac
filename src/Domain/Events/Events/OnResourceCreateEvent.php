@@ -4,7 +4,7 @@
 namespace RavineRbac\Domain\Events\Events;
 
 use RavineRbac\Domain\Events\Event;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
+use RavineRbac\Domain\Models\ResourceType;
 
 
 class OnResourceCreateEvent extends Event

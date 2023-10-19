@@ -6,7 +6,7 @@ namespace Tests\Presentation\Middleware;
 
 use RavineRbac\Application\Factories\RbacValidationFactory;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
-use RavineRbac\Domain\Models\RBAC\AccessControl;
+use RavineRbac\Domain\Models\AccessControl;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\TestCase;
 

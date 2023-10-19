@@ -11,7 +11,7 @@ interface RoleBulkInsertRepositoryInterface
     /**
      * This function MUST store resources as they are defined.
      * 
-     * @param \RavineRbac\Domain\Models\RBAC\ResourceType[] $role
+     * @param \RavineRbac\Domain\Models\ResourceType[] $role
      * 
      * @return Result<bool,\Exception>
      */

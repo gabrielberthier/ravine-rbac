@@ -2,16 +2,17 @@
 
 namespace RavineRbac\Infra\Persistence\Cycle;
 
-use RavineRbac\Data\Entities\Cycle\CycleAccount;
-use RavineRbac\Domain\Dto\AccountDto;
-use RavineRbac\Domain\Exceptions\Account\UserAlreadyRegisteredException;
 use RavineRbac\Domain\Models\Account;
 use RavineRbac\Domain\Models\Enums\AuthTypes;
+use RavineRbac\Domain\OptionalApi\Result;
+use RavineRbac\Domain\OptionalApi\Result\Err;
+use RavineRbac\Domain\OptionalApi\Result\Ok;
 use RavineRbac\Domain\Repositories\AccountRepository;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 use Cycle\ORM\RepositoryInterface;
 use Cycle\Database\Exception\StatementException\ConstrainException;
+use RavineRbac\Infra\Persistence\Cycle\Entities\CycleAccount;
 
 class CycleAccountRepository implements AccountRepository
 {
@@ -23,32 +24,24 @@ class CycleAccountRepository implements AccountRepository
 
     public function findByAccess(string $access): ?Account
     {
-        $findBy = filter_var($access, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        $cycleAccount = $this->repository()->findOne([$findBy => $access]);
-
-        return $cycleAccount?->toModel();
+        return $this->repository()->findOne(['access' => $access])?->toModel();
     }
 
-    public function findByMail(string $mail): ?Account
+    public function findById(int $id): ?Account
     {
-        $cycleAccount = $this->repository()->findOne(['email' => $mail]);
-
-        return $cycleAccount?->toModel();
+        return $this->repository()->findByPK($id)?->toModel();
     }
 
     public function findByUUID(string $uuid): ?Account
     {
-        $cycleAccount = $this->repository()->findOne(['uuid' => $uuid]);
-
-        return $cycleAccount?->toModel();
+        $this->repository()->findOne(['uuid' => $uuid])?->toModel();
     }
 
-    public function findWithAuthType(string $email, AuthTypes $authType): ?Account
+    public function findWithAuthType(string $access, AuthTypes $authType): ?Account
     {
         $cycleAccount = $this->repository()->findOne(
             [
-                'email' => $email,
+                'access' => $access,
                 'authType' => $authType->value
             ]
         );
@@ -56,21 +49,19 @@ class CycleAccountRepository implements AccountRepository
         return $cycleAccount?->toModel();
     }
 
-    public function insert(AccountDto $accountDto): Account
+    /** @return Result<bool, \Exception> */
+    public function insert(Account $account): Result
     {
         try {
-            $account = new CycleAccount();
-            $account->setEmail($accountDto->email)
-                ->setUsername($accountDto->username)
-                ->setAuthType($accountDto->authType->value)
-                ->setPassword($accountDto->password);
-            $this->em->persist($account);
+            $this->em->persist(CycleAccount::fromModel($account));
 
             $this->em->run();
 
-            return $account?->toModel();
-        } catch (ConstrainException) {
-            throw new UserAlreadyRegisteredException();
+            return new Ok(true);
+        } catch (ConstrainException $ex) {
+            return new Err($ex);
+        } catch (\Exception $ex) {
+            return new Err($ex);
         }
     }
 

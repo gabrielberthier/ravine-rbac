@@ -6,7 +6,7 @@ namespace RavineRbac\Infra\Persistence\Cycle\Entities;
 
 use RavineRbac\Infra\Persistence\Cycle\Entities\Traits\TimestampsTrait;
 use RavineRbac\Infra\Persistence\Cycle\Entities\Traits\UuidTrait;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\Role;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Table\Index;
@@ -136,9 +136,9 @@ class CycleRole
         $this->extendedRoles->add($role);
     }
 
-    public function removeRole(CycleRole $permission): void
+    public function removeRole(CycleRole $role): void
     {
-        $this->extendedRoles = $this->extendedRoles->filter(static fn(CycleRole $p) => $p !== $post);
+        $this->extendedRoles = $this->extendedRoles->filter(static fn(CycleRole $p) => $p !== $role);
     }
 
     public function getPermissions(): Collection
@@ -159,6 +159,6 @@ class CycleRole
 
     public function removePermission(CyclePermission $permission): void
     {
-        $this->permissions = $this->permissions->filter(static fn(CyclePermission $p) => $p !== $post);
+        $this->permissions = $this->permissions->filter(static fn(CyclePermission $p) => $p !== $permission);
     }
 }

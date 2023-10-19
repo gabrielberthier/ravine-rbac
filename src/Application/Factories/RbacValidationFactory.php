@@ -2,8 +2,8 @@
 namespace RavineRbac\Application\Factories;
 
 use RavineRbac\Domain\Contracts\AccessControlInterface;
-use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
+use RavineRbac\Domain\Models\Permission;
+use RavineRbac\Domain\Models\ResourceType;
 use RavineRbac\Application\Middleware\RoleValidationMiddleware;
 use RavineRbac\Application\Protocols\RbacFallbackInterface;
 

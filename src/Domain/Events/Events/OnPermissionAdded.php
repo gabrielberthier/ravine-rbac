@@ -4,9 +4,9 @@
 namespace RavineRbac\Domain\Events\Events;
 
 use RavineRbac\Domain\Events\Event;
-use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\Permission;
+use RavineRbac\Domain\Models\ResourceType;
+use RavineRbac\Domain\Models\Role;
 
 
 class OnPermissionAdded extends Event

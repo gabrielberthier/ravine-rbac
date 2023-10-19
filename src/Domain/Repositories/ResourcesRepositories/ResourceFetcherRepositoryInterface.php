@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RavineRbac\Domain\Repositories\ResourcesRepositories;
 
-use RavineRbac\Domain\Models\RBAC\ResourceType;
+use RavineRbac\Domain\Models\ResourceType;
 use RavineRbac\Domain\OptionalApi\Result;
 
 interface ResourceFetcherRepositoryInterface

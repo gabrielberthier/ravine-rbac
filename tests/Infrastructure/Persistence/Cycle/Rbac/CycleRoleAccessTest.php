@@ -4,10 +4,10 @@ namespace Tests\Infrastructure\Persistence\Orm\Rbac;
 
 
 
-use RavineRbac\Domain\Models\RBAC\ContextIntent;
-use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\ContextIntent;
+use RavineRbac\Domain\Models\Permission;
+use RavineRbac\Domain\Models\ResourceType;
+use RavineRbac\Domain\Models\Role;
 use Cycle\ORM\EntityManager;
 use Cycle\ORM\ORM;
 use PHPUnit\Framework\Attributes\CoversNothing;

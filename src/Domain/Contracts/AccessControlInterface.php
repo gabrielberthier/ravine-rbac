@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RavineRbac\Domain\Contracts;
 
 use PhpOption\Option;
-use RavineRbac\Domain\Models\RBAC\{ResourceType, Role, Permission, ContextIntent};
+use RavineRbac\Domain\Models\{ResourceType, Role, Permission, ContextIntent};
 
 interface AccessControlInterface extends \JsonSerializable
 {

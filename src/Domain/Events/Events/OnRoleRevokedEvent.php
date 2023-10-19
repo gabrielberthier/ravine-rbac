@@ -4,7 +4,7 @@
 namespace RavineRbac\Domain\Events\Events;
 
 use RavineRbac\Domain\Events\Event;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\Role;
 
 
 class OnRoleRevokedEvent extends Event

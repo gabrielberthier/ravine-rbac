@@ -2,7 +2,7 @@
 
 namespace RavineRbac\Infra\Persistence\Cycle\RbacDb;
 
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\Role;
 use RavineRbac\Domain\OptionalApi\Result;
 use RavineRbac\Domain\OptionalApi\Result\Err;
 use RavineRbac\Domain\OptionalApi\Result\Ok;

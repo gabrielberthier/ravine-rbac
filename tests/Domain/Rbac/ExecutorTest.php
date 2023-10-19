@@ -5,24 +5,23 @@ declare(strict_types=1);
 namespace Tests\Domain\Rbac;
 
 use RavineRbac\Domain\Models\Account;
-use RavineRbac\Domain\Models\RBAC\AccessControl;
-use RavineRbac\Domain\Models\RBAC\ContextIntent;
-use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
-use RavineRbac\Domain\Models\RBAC\Role;
-use RavineRbac\Domain\Models\RBAC\RoleProfile;
+use RavineRbac\Domain\Models\AccessControl;
+use RavineRbac\Domain\Models\ContextIntent;
+use RavineRbac\Domain\Models\Permission;
+use RavineRbac\Domain\Models\ResourceType;
+use RavineRbac\Domain\Models\Role;
 use PHPUnit\Framework\TestCase;
 
 
 class ExecutorTest extends TestCase
 {
     private Account $account;
-    private RoleProfile $profile;
 
     protected function setUp(): void
     {
-        $this->account = new Account(null, 'mail', 'username', 'pass', 'COMMON');
-        $this->profile = new RoleProfile($this->account);
+        $this->account = new Account(
+            access: 'username'
+        );
     }
 
     public function testShouldReturnTrueForAccessableResource()
@@ -31,9 +30,9 @@ class ExecutorTest extends TestCase
         $resource = new ResourceType('image', 'images resources');
         $canCreate = new Permission('can:create', ContextIntent::READ);
         $role->addPermissionToResourceType($canCreate, $resource);
-        $this->profile->addRole($role);
+        $this->account->addRole($role);
 
-        $this->assertTrue($this->profile->canAccess($resource, ContextIntent::READ));
+        $this->assertTrue($this->account->canAccess($resource, ContextIntent::READ));
     }
 
     public function testShouldReturnFalseForInaccessableResource()
@@ -42,9 +41,9 @@ class ExecutorTest extends TestCase
         $resource = new ResourceType('image', 'images resources');
         $canCreate = new Permission('can:create', ContextIntent::READ);
         $role->addPermissionToResourceType($canCreate, $resource);
-        $this->profile->addRole($role);
+        $this->account->addRole($role);
 
-        $this->assertFalse($this->profile->canAccess($resource, ContextIntent::CREATE));
+        $this->assertFalse($this->account->canAccess($resource, ContextIntent::CREATE));
     }
 
     public function testAccessControlEmitsStringObject()

@@ -4,10 +4,10 @@ use Cycle\ORM\ORM;
 use RavineRbac\Domain\Events\Events\OnPermissionAdded;
 use RavineRbac\Domain\Events\Events\OnRbacStart;
 use RavineRbac\Domain\Events\ListenerProvider;
-use RavineRbac\Domain\Models\RBAC\ContextIntent;
-use RavineRbac\Domain\Models\RBAC\Permission;
-use RavineRbac\Domain\Models\RBAC\ResourceType;
-use RavineRbac\Domain\Models\RBAC\Role;
+use RavineRbac\Domain\Models\ContextIntent;
+use RavineRbac\Domain\Models\Permission;
+use RavineRbac\Domain\Models\ResourceType;
+use RavineRbac\Domain\Models\Role;
 use RavineRbac\Infra\Persistence\Cycle\Entities\CycleRole;
 
 return static function (ORM $orm) {
