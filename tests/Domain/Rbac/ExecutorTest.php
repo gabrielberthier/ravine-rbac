@@ -50,10 +50,10 @@ class ExecutorTest extends TestCase
     public function testAccessControlEmitsStringObject()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResourceType('image', 'images resources');
+        $accessControl->createResourceType('image', 'images resources');
         $role = $accessControl
             ->forgeRole('image:role')
-            ->addPermissionToRole('image:role', $resource, ContextIntent::CREATE)
+            ->addPermissionToRole('image:role', 'image', ContextIntent::CREATE)
             ->getRole("image:role")->get();
 
         $this->assertStringContainsStringIgnoringCase(
@@ -65,7 +65,8 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillAllowPass()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResourceType('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
+        $accessControl->appendResourceType($resource);
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(
@@ -86,7 +87,8 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillNotAllowPassForDifferentIntent()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResourceType('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
+        $accessControl->appendResourceType($resource);
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(
@@ -107,7 +109,8 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillAllowPassForDifferentIntentButTruethyFallback()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResourceType('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
+        $accessControl->appendResourceType($resource);
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(
@@ -131,7 +134,8 @@ class ExecutorTest extends TestCase
     public function testAccessControlWillNotAllowPassForDifferentIntentAndFalsyFallback()
     {
         $accessControl = new AccessControl();
-        $resource = $accessControl->createResourceType('image', 'images resources');
+        $resource = new ResourceType('image', 'images resources');
+        $accessControl->createResourceType('image', 'images resources');
         $accessControl
             ->forgeRole('image:role')
             ->addPermissionToRole(

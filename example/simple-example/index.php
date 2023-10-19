@@ -8,7 +8,7 @@ use RavineRbac\Application\Middleware\RoleValidationMiddleware;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
 use RavineRbac\Domain\Models\RBAC\ContextIntent;
 use RavineRbac\Domain\Models\RBAC\Role;
-use Psr\Http\Server\MiddlewareInterface as Middleware;
+use Psr\Http\Server\MiddlewareInterface;
 use HttpSoft\ServerRequest\ServerRequestCreator;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -17,7 +17,7 @@ $accessControl = new AccessControl();
 
 $role = new Role('admin', 'Admin Privileges');
 
-// This is the same as below, but preferable since it holds reference to resource outside Role's WeakMap.
+// This is the same as below, but preferable, since it holds reference to a ResourceType outside Role's WeakMap object.
 // In case you actually want to use instances, please append them in access control interface.
 
 $accessControl->forgeRole('admin', 'Admin Privileges')
@@ -29,7 +29,7 @@ $accessControl->forgeRole('admin', 'Admin Privileges')
 //     new ResourceType('image', 'Image Resources')
 // );
 
-/** @var Middleware */
+/** @var MiddlewareInterface */
 $middleware = new RoleValidationMiddleware(
     resource: 'image',
     accessControl: $accessControl

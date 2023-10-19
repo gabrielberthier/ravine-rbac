@@ -142,7 +142,9 @@ class RoleValidationMiddlewareTest extends TestCase
     # Success cases 👇
     public function testShouldPassWhenRolePresentInAccessControlHasPermissionToAccess()
     {
-        $resource = $this->accessControl->createResourceType('video', 'description');
+        $resource = new ResourceType('video', 'description');
+        $this->accessControl->appendResourceType($resource);
+
         $this->accessControl->forgeRole('admin', 'description')->grantAccessOn(
             'admin',
             $resource,

@@ -3,6 +3,7 @@
 namespace RavineRbac\Application\Middleware;
 
 
+use Psr\Http\Message\ServerRequestInterface;
 use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
 use RavineRbac\Domain\Contracts\AccessControlInterface;
 use RavineRbac\Domain\Models\RBAC\AccessControl;
@@ -28,11 +29,8 @@ class RoleValidationMiddleware implements Middleware
     }
     public function process(Request $request, RequestHandler $handler): Response
     {
-        /** @var array */
-        $rawToken = $request->getAttribute("token");
-        if (is_array($rawToken) && !empty($rawToken)) {
-            $token = new Token(...$rawToken["data"]);
-
+        $token = $this->getTokenInstance($request);
+        if ($token) {
             $permission = $this->getAccessGrantRequest($request);
             $maybeRole = $this->accessControl->getRole($token->role);
             $maybeResource = $this->accessControl->getResourceType($this->resource);
@@ -55,6 +53,24 @@ class RoleValidationMiddleware implements Middleware
         }
 
         throw new HttpForbiddenAccessException();
+    }
+
+    private function getTokenInstance(Request $request): ?Token
+    {
+        /** @var array|string|object */
+        $rawToken = $request->getAttribute("token");
+
+        if (is_string($rawToken)) {
+            $rawToken = json_decode($rawToken, associative: true);
+        }
+        if (is_object($rawToken)) {
+            $rawToken = (array) $rawToken;
+        }
+        if (is_array($rawToken) && !empty($rawToken) && isset($rawToken["data"])) {
+            return new Token(...$rawToken["data"]);
+        }
+
+        return null;
     }
 
     public function setResourceTarget(ResourceType|string $resource): self
