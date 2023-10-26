@@ -2,7 +2,6 @@
 
 namespace RavineRbac\Application\Middleware;
 
-
 use RavineRbac\Application\Exceptions\HttpForbiddenAccessException;
 use RavineRbac\Domain\Contracts\AccessControlInterface;
 use RavineRbac\Domain\Models\ContextIntent;
@@ -41,7 +40,7 @@ class RoleValidationMiddleware implements Middleware
             if ($canAccess) {
                 return $handler->handle($request);
             }
-
+            
             throw new HttpForbiddenAccessException();
         }
 
