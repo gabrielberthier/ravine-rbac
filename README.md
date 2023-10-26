@@ -14,7 +14,11 @@ $values = [
         'username' => 'username', // optional (future work using accounts with many roles)
         'role' => 'admin' // -> MANDATORY 
     ]
-]
+];
+
+# It could be sent in JSON string format as well
+
+$values = '{"data":{"email":"mail","username":"username","role":"admin"}}';
 
 ```
 
