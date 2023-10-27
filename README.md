@@ -37,6 +37,64 @@ Than, the middleware will map the HTTP method to a desired operation (READ, UPDA
 
 This package focuses on being REALLY extensible, which means that you could potentially use it in many other scenarios than above or the ones in `complex-example` directory. You could use the predefined events to store in your database your designated roles (you MUST use ProxyAccessControl for that), implement your own repository layer, extend roles based on your will, and so on. I intentionally provided a repository layer in order to achieve disk storage using Cycle ORM which is more than enough to give you an idea of how to personalize your own repositories layer.
 
+More complex features include
+
+- Event listeners
+
+```php
+use RavineRbac/Domain/Events/Events/{
+    OnRoleRevokedEvent,
+    OnRoleExtendedEvent,
+    OnRoleAppendedEvent,
+    OnRoleCreateEvent,
+    OnResourceCreateEvent,
+    OnRbacStart,
+    OnResourceAppendedEvent,
+    OnAccessAttempt,
+    OnPermissionAdded
+};
+
+$provider = new ListenerProvider();
+
+$provider->addListener(OnRbacStart::class, fn(OnRbacStart $event) => echo "Make what you want to");
+
+/** @var Middleware */
+$middleware = new RoleValidationMiddleware(
+    resource: 'image',
+    accessControl: new ProxyAccessControl(
+        new AccessControl(),
+        new EventDispatcher($provider),
+        $logger
+    )
+);
+
+```
+
+- Custom fallbacks
+
+```php
+
+$roleValidationMiddleware->setByPassFallback(new class () implements RbacFallbackInterface {
+            public function retry(
+                Role|string $role,
+                ResourceType|string $resource,
+                ContextIntent|Permission $permission
+            ): bool {
+                return $role->name === 'you know who';
+            }
+        });
+```
+
+- Default Permission Name
+
+```php
+
+$roleValidationMiddleware->setPredefinedPermission(new Permission('file requests', ContextIntent::CUSTOM));
+
+```
+
+- And you
+
 ## What is RBAC
 
 Role-based access control (RBAC) refers to the idea of assigning permissions to users based on their role within an organization. It offers a simple, manageable approach to access management that is less prone to error than assigning permissions to users individually.
