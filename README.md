@@ -130,3 +130,9 @@ A subject (i.e, a person, system, routine) HAS one or more roles. Roles CANNOT b
 
 <https://frontegg.com/guides/rbac>
 <https://auth0.com/docs/manage-users/access-control>
+
+## Inspired by
+
+[PHP Simple RBAC](https://github.com/doganoo/simple-rbac)
+[Python Simple RBAC](https://github.com/tonyseek/simple-rbac/tree/master)
+[Role, Attribute and conditions based Access Control for Node.js](https://www.npmjs.com/package/role-acl)
